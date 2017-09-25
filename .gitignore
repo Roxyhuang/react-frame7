@@ -1,0 +1,14 @@
+debug.log*
+npm-debug.log*
+*/node_modules/
+*/dist/
+*/dist-stage/
+.vscode/
+.idea/
+_build/
+_prod/
+_prod2/
+_sandbox/
+_ucloud/
+.project/
+*/qshell_windows_amd64.exe
