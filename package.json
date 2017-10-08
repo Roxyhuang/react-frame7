@@ -12,7 +12,12 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
-  "devDependencies":{
+  "devDependencies": {
+    "chalk": "^2.1.0",
+    "child_process": "^1.0.2",
+    "semver": "^5.4.1",
+    "shelljs": "^0.7.8",
+    "webpack": "^3.6.0"
   },
   "scripts": {
     "dev": "node build/script/dev-server.js",
