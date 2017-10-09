@@ -1,6 +1,7 @@
 debug.log*
 npm-debug.log*
 */node_modules/
+/node_modules/
 */dist/
 */dist-stage/
 .vscode/
@@ -11,4 +12,5 @@ _prod2/
 _sandbox/
 _ucloud/
 .project/
+package-lock.json
 */qshell_windows_amd64.exe
