@@ -90,21 +90,21 @@ module.exports = {
       }]
   },
   // postcss: [autoprefixer],
-  // plugins: [
-  //   new webpack.DefinePlugin({
-  //     'process.env': {
-  //       NODE_ENV: JSON.stringify('development')
-  //     }
-  //   }),
-  //   new ProgressBarPlugin(),
-  //   new HtmlWebpackPlugin({
-  //     filename: '/dist/index.html',
-  //     template: 'public/index.html',
-  //     hash: false,
-  //   }),
-  //   new webpack.HotModuleReplacementPlugin(),
-  //   new webpack.NoErrorsPlugin()
-  // ],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development')
+      }
+    }),
+    new ProgressBarPlugin(),
+    new HtmlWebpackPlugin({
+      filename: '/dist/index.html',
+      template: 'public/index.html',
+      hash: false,
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
   // resolve: {
   //   extensions: ['', '.js', '.jsx', '.less', '.scss', '.css'],
   // }
