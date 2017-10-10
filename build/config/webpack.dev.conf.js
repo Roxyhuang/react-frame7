@@ -8,25 +8,24 @@ const autoprefixer = require('autoprefixer');
 const ROOT_PATH = path.resolve(__dirname, '../../');
 const APP_PATH = path.resolve(ROOT_PATH, 'src');
 const BUILD_PATH = path.resolve(ROOT_PATH, '/dist');
-const APP_FILE = path.resolve(APP_PATH, 'main.entry.jsx');
+const APP_FILE = path.resolve(APP_PATH, 'main.jsx');
 
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: {
-    app: APP_FILE
-    // app: [
-    //   'webpack-hot-middleware/client?reload=true',
-    //   APP_FILE,
-    // ],
-    // vendors: [
+    app: [
+      'webpack-hot-middleware/client?reload=true',
+      APP_FILE,
+    ],
+    vendors: [
     //   'antd',
     //   'classnames',
     //   'jwt-decode',
     //   'query-string',
-    //   'react',
+      'react',
     //   'react-addons-transition-group',
-    //   'react-dom',
+      'react-dom',
     //   'react-redux',
     //   'react-router',
     //   'react-router-redux',
@@ -37,7 +36,7 @@ module.exports = {
     //   'redux-thunk',
     //   'reselect',
     //   'whatwg-fetch',
-    // ],
+    ],
   },
   output: {
     publicPath: '/',
@@ -83,9 +82,9 @@ module.exports = {
         loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]',
         include: [APP_PATH]
       }, {
-        test: /\.jsx$/,
+        test: /\.jsx?$/,
         exclude: /^node_modules$/,
-        loaders: ['react-hot-loader', 'babel-loader'],
+        loaders: ['babel-loader','react-hot-loader'],
         include: [APP_PATH]
       }]
   },
@@ -105,7 +104,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
-  // resolve: {
-  //   extensions: ['', '.js', '.jsx', '.less', '.scss', '.css'],
-  // }
+  resolve: {
+    extensions: ['.js', '.jsx', '.css'],
+    modules: [
+      path.join(__dirname, 'src'),
+      "node_modules"
+    ],
+  },
 };
