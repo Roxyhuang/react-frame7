@@ -1,114 +1,113 @@
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+import config from 'config';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
+import DashboardPlugin from 'webpack-dashboard/plugin';
+import precss from 'precss';
+import postcssCssnext from 'postcss-cssnext';
 
-const ROOT_PATH = path.resolve(__dirname, '../../');
-const APP_PATH = path.resolve(ROOT_PATH, 'src');
-const BUILD_PATH = path.resolve(ROOT_PATH, '/dist');
-const APP_FILE = path.resolve(APP_PATH, 'main.jsx');
+import webpackConfig, { JS_SOURCE } from './webpack.base.conf';
 
+const PUBLIC_PATH = config.get('publicPath');
+const APP_ENTRY_POINT = `${JS_SOURCE}/router`;
 
-module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  entry: {
-    app: [
-      'webpack-hot-middleware/client?reload=true',
-      APP_FILE,
-    ],
-    vendors: [
-    //   'antd',
-    //   'classnames',
-    //   'jwt-decode',
-    //   'query-string',
-      'react',
-    //   'react-addons-transition-group',
-      'react-dom',
-    //   'react-redux',
-    //   'react-router',
-    //   'react-router-redux',
-    //   'react-router-scroll',
-    //   'recharts',
-    //   'redux',
-    //   'redux-actions',
-    //   'redux-thunk',
-    //   'reselect',
-    //   'whatwg-fetch',
-    ],
-  },
-  output: {
-    publicPath: '/',
-    path: BUILD_PATH,
-    filename: '[name].js',
-    sourceMapFilename: '[name].[hash].js.map',
-    chunkFilename: '[name].[chunkhash:5].min.js',
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        exclude: /^node_modules$/,
-        loaders: ['react-hot-loader', 'babel-loader'],
-        include: [APP_PATH]
-      },
-      {
-        test: /\.css$/,
-        exclude: /^node_modules$/,
-        loaders: ['style', 'css', 'autoprefixer'],
-        include: [APP_PATH]
-      },
-      {
-        test: /\.less$/,
-        exclude: /^node_modules$/,
-        loaders: ['style', 'css', 'autoprefixer', 'less'],
-        include: [APP_PATH]
-      },
-      {
-        test: /\.scss$/,
-        exclude: /^node_modules$/,
-        loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]!sass-loader?sourceMap=true',
-        include: [APP_PATH],
-      },
-      {
-        test: /\.(eot|woff|svg|ttf|woff2|gif|appcache)(\?|$)/,
-        exclude: /^node_modules$/,
-        loader: 'file-loader?name=[name].[ext]',
-        include: [APP_PATH]
-      }, {
-        test: /\.(png|jpg|gif)$/,
-        exclude: /^node_modules$/,
-        loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]',
-        include: [APP_PATH]
-      }, {
-        test: /\.jsx?$/,
-        exclude: /^node_modules$/,
-        loaders: ['babel-loader','react-hot-loader'],
-        include: [APP_PATH]
-      }]
-  },
-  // postcss: [autoprefixer],
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development')
-      }
-    }),
-    new ProgressBarPlugin(),
-    new HtmlWebpackPlugin({
-      filename: '/dist/index.html',
-      template: 'public/index.html',
-      hash: false,
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
-  resolve: {
-    extensions: ['.js', '.jsx', '.css'],
-    modules: [
-      path.join(__dirname, 'src'),
-      "node_modules"
-    ],
-  },
+const webpackDevOutput = {
+  publicPath: `http://${PUBLIC_PATH}/`,
+  filename: 'assets/bundle.js',
 };
+
+// Merges webpackDevOutput and webpackConfig.output
+webpackConfig.output = Object.assign(webpackConfig.output, webpackDevOutput);
+
+webpackConfig.devServer = {
+  clientLogLevel: "error",
+  compress: true,
+  noInfo: true,
+  quiet: true,
+  stats: "errors-only",
+};
+
+// This is your testing container, we did
+// that for you, so you don't need to, if
+// you need to change the container template
+// go to the file in `template` below
+const html = config.get('html');
+
+const htmlPlugins = html.map((page) =>
+  new HtmlWebpackPlugin({
+    title: page.title,
+    template: `src/assets/template/${page.template}`,
+    inject: 'body',
+    filename: page.filename,
+  })
+);
+
+webpackConfig.plugins.push(
+  new DashboardPlugin({ port: 3300 }),
+  new webpack.LoaderOptionsPlugin({
+    debug: true
+  }),
+  // Since we specify --hot mode, we don’t need to add this plugin
+  // It is mutually exclusive with the --hot option.
+  // new webpack.HotModuleReplacementPlugin(),
+  new webpack.DefinePlugin({
+    __CONFIG__: JSON.stringify(config.get('app')),
+    'process.env': {
+      NODE_ENV: JSON.stringify('development'),
+    },
+  }),
+  new BrowserSyncPlugin({
+    host: 'localhost',
+    port: 3001,
+    proxy: `http://localhost:${process.env.PORT}/`,
+
+    // Prevents BrowserSync from automatically opening up the app in your browser
+    open: false,
+    reloadDelay: 2500,
+  }, {
+    // Disable BrowserSync's browser reload/asset injections feature because
+    // Webpack Dev Server handles this for us already
+    reload: false,
+  })
+);
+
+webpackConfig.module.rules = webpackConfig.module.rules.concat({
+  test: /\.css$/,
+  use: [
+    {
+      loader: 'style-loader',
+    },
+    {
+      loader: 'css-loader',
+      options: { sourceMap: true, importLoaders: 1 }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true,
+        // https://github.com/postcss/postcss-loader/issues/92
+        // https://github.com/postcss/postcss-loader/issues/8
+        plugins: () => [
+          precss(),
+          postcssCssnext({
+            browsers: ['last 2 versions', 'ie >= 9'],
+            compress: true,
+          }),
+        ],
+      },
+    },
+  ],
+});
+
+webpackConfig.plugins = webpackConfig.plugins.concat(htmlPlugins);
+
+webpackConfig.devtool = 'cheap-module-eval-source-map';
+
+webpackConfig.entry = [
+  'babel-polyfill',
+  `webpack-dev-server/client?http://${PUBLIC_PATH}`,
+  'webpack/hot/only-dev-server',
+  `./${APP_ENTRY_POINT}`,
+];
+
+export default webpackConfig;

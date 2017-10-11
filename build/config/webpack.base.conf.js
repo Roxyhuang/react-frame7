@@ -1,115 +1,159 @@
-const path = require('path');
-const autoprefixer = require('autoprefixer');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
-module.exports = {
-  // context: path.join(__dirname, './src'),
+import path from 'path';
+import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
+import config from 'config';
+import fs from 'fs';
 
-  entry: {
-    app: [
-      'webpack-hot-middleware/client?reload=true',
-      './src/main.entry.jsx',
+import { SHOULD_BUILD } from '../script/shouldBuild';
+
+// trace which loader is deprecated
+// feel free to remove that if you don't need this feature
+process.traceDeprecation = false;
+
+// Please read the following link if
+// you have no idea how to use this feature
+// https://github.com/motdotla/dotenv
+if(!SHOULD_BUILD) {
+  require('dotenv').config({silent: true});
+}
+
+// Environment variable injection
+// ================================================================================
+const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
+process.env.PACKAGE_VERSION = version;
+
+// Defining config variables
+// ================================================================================
+const BUILD_PATH = path.join(__dirname, 'docroot');
+
+const COMMON_LOADERS = [
+  {
+    test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          hash: 'sha512',
+          digest: 'hex',
+          name: 'assets/[hash].[ext]',
+        }
+      },
+      {
+        loader: 'image-webpack-loader',
+        options: {
+          query: {
+            mozjpeg: {
+              progressive: true,
+            },
+            gifsicle: {
+              interlaced: true,
+            },
+            optipng: {
+              optimizationLevel: 7,
+            },
+            pngquant: {
+              quality: '65-90',
+              speed: 4
+            }
+          },
+        }
+      }
     ],
-    // vendors: [
-    //   'antd',
-    //   'classnames',
-    //   'jwt-decode',
-    //   'lodash',
-    //   'query-string',
-    //   'react',
-    //   'react-addons-transition-group',
-    //   'react-dom',
-    //   'react-redux',
-    //   'react-router',
-    //   'react-router-redux',
-    //   'react-router-scroll',
-    //   'recharts',
-    //   'redux',
-    //   'redux-actions',
-    //   'redux-thunk',
-    //   'reselect',
-    //   'whatwg-fetch',
-    // ],
+  }, {
+    test: /\.(js|jsx)?$/,
+    exclude: /node_modules/,
+    loader: 'babel-loader',
+    options: {
+      cacheDirectory: true,
+      plugins: ['transform-runtime', 'transform-decorators-legacy'],
+    },
   },
+  {
+    test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          mimetype: 'application/font-woff',
+        }
+      }
+    ],
+  },
+  {
+    test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          mimetype: 'application/font-woff',
+        }
+      }
+    ],
+  },
+  {
+    test: /\.[ot]tf(\?v=\d+\.\d+\.\d+)?$/,
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          mimetype: 'application/octet-stream',
+        }
+      }
+    ],
+  },
+  {
+    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          mimetype: 'application/vnd.ms-fontobject',
+        }
+      }
+    ],
+  }
+];
 
+// Export
+// ===============================================================================
+export const JS_SOURCE = config.get('jsSourcePath');
+
+export default {
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].[hash].min.js',
-    publicPath: '/',
-    sourceMapFilename: '[name].[hash].js.map',
-    chunkFilename: '[id].[hash].min.js',
+    path: BUILD_PATH,
   },
-
-  devtool: 'cheap-module-eval-source-map',
-
-  plugins: [
-    new ProgressBarPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'public/index.html',
-      inject: 'body',
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('vendors', '[name].[hash].min.js'),
-    new webpack.optimize.OccurrenceOrderPlugin(true),
-    new ExtractTextPlugin('[name].css'),
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') },
-    }),
-  ],
-
-  module: {
-    loaders: [
-      {
-        test: /\.scss$/,
-        include: path.resolve(__dirname, 'src'),
-        loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]!sass-loader?sourceMap=true'
-      },
-      {
-        test: /\.scss$/,
-        exclude: path.resolve(__dirname, 'src'),
-        loader: 'style-loader!css-loader!sass-loader?sourceMap=true'
-      },
-      {
-        test: /\.css$/,
-        include: path.join(__dirname, 'src'),
-        loader: ExtractTextPlugin.extract('style-loader', '!css-loader!postcss-loader'),
-      },
-      {
-        test: /\.css$/,
-        exclude: path.join(__dirname, 'src'),
-        loader: 'style!css',
-      },
-      {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader'),
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loaders: ['babel'],
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
-        loader: 'url-loader?prefix=img/&limit=10000',
-      },
-      {
-        test: /\.(woff|woff2|ttf|eot)$/,
-        loader: 'url-loader?prefix=font/&limit=10000',
-      },
+  resolve: {
+    extensions: ['.js', '.jsx', '.css'],
+    modules: [
+      path.join(__dirname, 'src'),
+      path.join(__dirname, 'assets'),
+      path.join(__dirname, JS_SOURCE),
+      "node_modules"
     ],
   },
-
-  postcss: [autoprefixer],
-
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
+  plugins: [
+    new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
+    new CaseSensitivePathsPlugin(),
+  ],
+  module: {
+    rules: COMMON_LOADERS,
+  },
+  node: {
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  },
+  externals: {
+    console:true,
+    fs:'{}',
+    tls:'{}',
+    net:'{}'
   },
 };

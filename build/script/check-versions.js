@@ -29,10 +29,10 @@ module.exports = function () {
   for (let i = 0; i < versionRequirements.length; i++) {
     const mod = versionRequirements[i];
     if (!semver.satisfies(mod.currentVersion, mod.versionRequirement)) {
-      warnings.push(mod.name + ': ' +
+      console.log(warnings.push(mod.name + ': ' +
           chalk.red(mod.currentVersion) + ' should be ' +
           chalk.green(mod.versionRequirement)
-      )
+      ));
     }
   }
 
@@ -46,5 +46,7 @@ module.exports = function () {
     }
     console.log();
     process.exit(1)
+  } else {
+    console.log(chalk.green('Env is checked'));
   }
 };

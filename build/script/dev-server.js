@@ -11,8 +11,6 @@ const checkVersions = require('./check-versions');
 
 // Check version for npm and node
 
-checkVersions();
-
 const app = express();
 const compiler = webpack(webpackConfig);
 
