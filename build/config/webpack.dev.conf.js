@@ -36,7 +36,8 @@ const html = config.get('html');
 const htmlPlugins = html.map((page) =>
   new HtmlWebpackPlugin({
     title: page.title,
-    template: `src/assets/template/${page.template}`,
+    // template: `src/assets/template/${page.template}`,
+    template: `public/index.html`,
     inject: 'body',
     filename: page.filename,
   })
