@@ -26,7 +26,7 @@ process.env.PACKAGE_VERSION = version;
 
 // Defining config variables
 // ================================================================================
-const BUILD_PATH = path.join(__dirname, 'docroot');
+const BUILD_PATH = path.join(__dirname, 'dist');
 
 const COMMON_LOADERS = [
   {

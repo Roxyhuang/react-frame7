@@ -6,10 +6,10 @@ import DashboardPlugin from 'webpack-dashboard/plugin';
 import precss from 'precss';
 import postcssCssnext from 'postcss-cssnext';
 
-import webpackConfig, { JS_SOURCE } from './webpack.base.conf';
+import webpackConfig, {JS_SOURCE} from './webpack.base.conf';
 
 const PUBLIC_PATH = config.get('publicPath');
-const APP_ENTRY_POINT = `${JS_SOURCE}/router`;
+const APP_ENTRY_POINT = `${JS_SOURCE}/main.jsx`;
 
 const webpackDevOutput = {
   publicPath: `http://${PUBLIC_PATH}/`,
@@ -43,7 +43,7 @@ const htmlPlugins = html.map((page) =>
 );
 
 webpackConfig.plugins.push(
-  new DashboardPlugin({ port: 3300 }),
+  new DashboardPlugin({port: 3300}),
   new webpack.LoaderOptionsPlugin({
     debug: true
   }),
@@ -79,7 +79,7 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat({
     },
     {
       loader: 'css-loader',
-      options: { sourceMap: true, importLoaders: 1 }
+      options: {sourceMap: true, importLoaders: 1}
     },
     {
       loader: 'postcss-loader',
@@ -103,11 +103,13 @@ webpackConfig.plugins = webpackConfig.plugins.concat(htmlPlugins);
 
 webpackConfig.devtool = 'cheap-module-eval-source-map';
 
-webpackConfig.entry = [
-  'babel-polyfill',
-  `webpack-dev-server/client?http://${PUBLIC_PATH}`,
-  'webpack/hot/only-dev-server',
-  `./${APP_ENTRY_POINT}`,
-];
+webpackConfig.entry = {
+  app: [
+    'babel-polyfill',
+    `webpack-dev-server/client?http://${PUBLIC_PATH}`,
+    'webpack/hot/only-dev-server',
+    `./${APP_ENTRY_POINT}`,
+  ]
+};
 
 export default webpackConfig;
