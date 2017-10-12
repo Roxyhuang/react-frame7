@@ -1,5 +1,5 @@
 import React from 'react';
-
+import s from './components/css/app1.less';
 import {
   Framework7App, Statusbar, Panel, View, Navbar, Pages, Page, ContentBlock, ContentBlockTitle,
   List, ListItem, Views, NavLeft, Link, NavCenter, NavRight, GridRow, GridCol, Button, Popup,
@@ -24,7 +24,7 @@ const MainViews = (props, context) => {
           </Navbar>
         <Pages>
           <Page>
-            <div className="test">test</div>
+            <div className={s.test}>test</div>
             <ContentBlockTitle>Welcome to my App</ContentBlockTitle>
             <ContentBlock inner>
               <p>Duis sed erat ac eros ultrices pharetra id ut tellus. Praesent rhoncus enim ornare ipsum aliquet ultricies. Pellentesque sodales erat quis elementum sagittis.</p>

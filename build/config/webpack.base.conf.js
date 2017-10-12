@@ -121,11 +121,11 @@ const COMMON_LOADERS = [
   {
     test: /\.less$/,
     use: [{
-      loader: "style-loader" // creates style nodes from JS strings
+      loader: "style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // creates style nodes from JS strings
     }, {
-      loader: "css-loader" // translates CSS into CommonJS
+      loader: "css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // translates CSS into CommonJS
     }, {
-      loader: "less-loader" // compiles Less to CSS
+      loader: "less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // compiles Less to CSS
     }],
   },
 ];

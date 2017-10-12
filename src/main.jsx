@@ -1,4 +1,3 @@
-import './components/css/app1.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
