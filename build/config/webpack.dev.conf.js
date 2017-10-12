@@ -50,7 +50,7 @@ webpackConfig.plugins.push(
   }),
   // Since we specify --hot mode, we don’t need to add this plugin
   // It is mutually exclusive with the --hot option.
-  // new webpack.HotModuleReplacementPlugin(),
+  new webpack.HotModuleReplacementPlugin(),
   new webpack.DefinePlugin({
     __CONFIG__: JSON.stringify(config.get('app')),
     'process.env': {
@@ -107,6 +107,7 @@ webpackConfig.devtool = 'cheap-module-eval-source-map';
 webpackConfig.entry = {
   app: [
     'babel-polyfill',
+    'webpack-hot-middleware/client?reload=true',
     // `webpack-dev-server/client?http://${PUBLIC_PATH}`,
     // 'webpack/hot/only-dev-server',
     `./${APP_ENTRY_POINT}`,

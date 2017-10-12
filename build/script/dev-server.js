@@ -26,25 +26,19 @@ const devMiddleware = require('webpack-dev-middleware')(compiler, {
   },
 });
 
-// // Set a Proxy Server
-// app.use('/api', proxyMiddleware({
-//   target: 'http://www.baidu.com',
-//   changeOrigin: true,
-// }));
-//
-// app.use(require('connect-history-api-fallback')());
+app.use(require('connect-history-api-fallback')());
 //
 app.use(devMiddleware);
 //
-// app.use(require('webpack-hot-middleware')(compiler, {
-//   log: console.log,
-//   reload: true,
-//   path: '/__webpack_hmr',
-//   heartbeat: 1,
-// }));
+app.use(require('webpack-hot-middleware')(compiler, {
+  log: console.log,
+  reload: true,
+  path: '/__webpack_hmr',
+  heartbeat: 1,
+}));
 //
 // // app.use(vhost(config.server.qa.host, app));
-// app.use('/assets', express.static('../../public'));
+app.use('/assets', express.static('../../public/assets'));
 //
 if (require.main === module) {
   const server = http.createServer(app);
