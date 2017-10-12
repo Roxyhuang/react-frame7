@@ -44,19 +44,19 @@ const htmlPlugins = html.map((page) =>
 );
 
 webpackConfig.plugins.push(
-  // new DashboardPlugin({port: 3300}),
-  // new webpack.LoaderOptionsPlugin({
-  //   debug: true
-  // }),
+  new DashboardPlugin({port: 3300}),
+  new webpack.LoaderOptionsPlugin({
+    debug: true
+  }),
   // Since we specify --hot mode, we don’t need to add this plugin
   // It is mutually exclusive with the --hot option.
   // new webpack.HotModuleReplacementPlugin(),
-  // new webpack.DefinePlugin({
-  //   __CONFIG__: JSON.stringify(config.get('app')),
-  //   'process.env': {
-  //     NODE_ENV: JSON.stringify('development'),
-  //   },
-  // }),
+  new webpack.DefinePlugin({
+    __CONFIG__: JSON.stringify(config.get('app')),
+    'process.env': {
+      NODE_ENV: JSON.stringify('development'),
+    },
+  }),
   // new BrowserSyncPlugin({
   //   host: 'localhost',
   //   port: 3001,

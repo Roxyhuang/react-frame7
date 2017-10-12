@@ -6,13 +6,13 @@ import {
 } from 'framework7-react';
 
 
-export const Test2 = () => {
+export const Test1 = () => {
   return (
     <View>
-      <Navbar title="Test2" backLink="Back" sliding backLinkUrl="/" />
+      <Navbar title="Test1" backLink="Back" sliding backLinkUrl="/" />
       <Pages>
         <Page>
-          222
+          333
         </Page>
       </Pages>
     </View>

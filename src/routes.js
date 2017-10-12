@@ -1,10 +1,16 @@
-import {About} from './components/pages/About';
-import {Form} from './components/pages/Form';
+import {Test1} from './components/pages/Test1';
+import {Test2} from './components/pages/Text2';
+import {Test3} from './components/pages/Text2';
 
-export const routes = [{
+export const routes = [
+  {
+    path: '/',
+    component: Test3
+  },
+  {
   path: '/about/',
-  component: About
+  component: Test1
 }, {
   path: '/form/',
-  component: Form
+  component: Test2
 }];
