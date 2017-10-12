@@ -1,10 +1,30 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { fromJS } from 'immutable';
+// import {App} from './components/App';
+import {
+  Framework7App, Statusbar, Panel, View, Navbar, Pages, Page, ContentBlock, ContentBlockTitle,
+  List, ListItem, Views, NavLeft, Link, NavCenter, NavRight, GridRow, GridCol, Button, Popup,
+  LoginScreen, LoginScreenTitle, ListButton, ListLabel, FormLabel, FormInput
+} from 'framework7-react';
 
-// Render the React application to the DOM
-// Root component is to bootstrap Provider, Router and DevTools
 ReactDOM.render(
-  <div>232</div>,
+  <Framework7App themeType="ios">
+        <Navbar title="My App" />
+        <Pages>
+          <Page>
+            <ContentBlock>
+              <div>123</div>
+              <div>123</div>
+              <div>123</div>
+              <div>123</div>
+              <div>123</div>
+              <div>123</div>
+              <div>123</div>
+              <div>123</div>
+            </ContentBlock>
+          </Page>
+        </Pages>
+  </Framework7App>,
   document.getElementById('root')
 );

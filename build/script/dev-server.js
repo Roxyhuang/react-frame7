@@ -14,34 +14,34 @@ const checkVersions = require('./check-versions');
 const app = express();
 const compiler = webpack(webpackConfig);
 
-// const devMiddleware = require('webpack-dev-middleware')(compiler, {
-//   publicPath: '/',
-//   hot: true,
-//   historyApiFallback: true,
-//   inline: true,
-//   progress: true,
-//   stats: {
-//     colors: true,
-//     chunks: false,
-//   },
-// });
-//
+const devMiddleware = require('webpack-dev-middleware')(compiler, {
+  publicPath: '/',
+  hot: true,
+  historyApiFallback: true,
+  inline: true,
+  progress: true,
+  stats: {
+    colors: true,
+    chunks: false,
+  },
+});
+
 // // Set a Proxy Server
-app.use('/api', proxyMiddleware({
-  target: 'http://www.baidu.com',
-  changeOrigin: true,
-}));
+// app.use('/api', proxyMiddleware({
+//   target: 'http://www.baidu.com',
+//   changeOrigin: true,
+// }));
 //
-app.use(require('connect-history-api-fallback')());
+// app.use(require('connect-history-api-fallback')());
 //
-// app.use(devMiddleware);
+app.use(devMiddleware);
 //
-app.use(require('webpack-hot-middleware')(compiler, {
-  log: console.log,
-  reload: true,
-  path: '/__webpack_hmr',
-  heartbeat: 1,
-}));
+// app.use(require('webpack-hot-middleware')(compiler, {
+//   log: console.log,
+//   reload: true,
+//   path: '/__webpack_hmr',
+//   heartbeat: 1,
+// }));
 //
 // // app.use(vhost(config.server.qa.host, app));
 // app.use('/assets', express.static('../../public'));

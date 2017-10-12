@@ -9,7 +9,7 @@ import postcssCssnext from 'postcss-cssnext';
 import webpackConfig, {JS_SOURCE} from './webpack.base.conf';
 
 const PUBLIC_PATH = config.get('publicPath');
-const APP_ENTRY_POINT = `${JS_SOURCE}/main.jsx`;
+const APP_ENTRY_POINT = `${JS_SOURCE}/Main.jsx`;
 
 const webpackDevOutput = {
   publicPath: `http://${PUBLIC_PATH}/`,
@@ -20,11 +20,11 @@ const webpackDevOutput = {
 webpackConfig.output = Object.assign(webpackConfig.output, webpackDevOutput);
 
 webpackConfig.devServer = {
-  clientLogLevel: "error",
-  compress: true,
-  noInfo: true,
-  quiet: true,
-  stats: "errors-only",
+  // clientLogLevel: "error",
+  // compress: true,
+  // noInfo: true,
+  // quiet: true,
+  // stats: "errors-only",
 };
 
 // This is your testing container, we did
@@ -44,32 +44,32 @@ const htmlPlugins = html.map((page) =>
 );
 
 webpackConfig.plugins.push(
-  new DashboardPlugin({port: 3300}),
-  new webpack.LoaderOptionsPlugin({
-    debug: true
-  }),
+  // new DashboardPlugin({port: 3300}),
+  // new webpack.LoaderOptionsPlugin({
+  //   debug: true
+  // }),
   // Since we specify --hot mode, we don’t need to add this plugin
   // It is mutually exclusive with the --hot option.
   // new webpack.HotModuleReplacementPlugin(),
-  new webpack.DefinePlugin({
-    __CONFIG__: JSON.stringify(config.get('app')),
-    'process.env': {
-      NODE_ENV: JSON.stringify('development'),
-    },
-  }),
-  new BrowserSyncPlugin({
-    host: 'localhost',
-    port: 3001,
-    proxy: `http://localhost:${process.env.PORT}/`,
-
-    // Prevents BrowserSync from automatically opening up the app in your browser
-    open: false,
-    reloadDelay: 2500,
-  }, {
-    // Disable BrowserSync's browser reload/asset injections feature because
-    // Webpack Dev Server handles this for us already
-    reload: false,
-  })
+  // new webpack.DefinePlugin({
+  //   __CONFIG__: JSON.stringify(config.get('app')),
+  //   'process.env': {
+  //     NODE_ENV: JSON.stringify('development'),
+  //   },
+  // }),
+  // new BrowserSyncPlugin({
+  //   host: 'localhost',
+  //   port: 3001,
+  //   proxy: `http://localhost:${process.env.PORT}/`,
+  //
+  //   // Prevents BrowserSync from automatically opening up the app in your browser
+  //   open: false,
+  //   reloadDelay: 2500,
+  // }, {
+  //   // Disable BrowserSync's browser reload/asset injections feature because
+  //   // Webpack Dev Server handles this for us already
+  //   reload: false,
+  // })
 );
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat({
@@ -107,8 +107,8 @@ webpackConfig.devtool = 'cheap-module-eval-source-map';
 webpackConfig.entry = {
   app: [
     'babel-polyfill',
-    `webpack-dev-server/client?http://${PUBLIC_PATH}`,
-    'webpack/hot/only-dev-server',
+    // `webpack-dev-server/client?http://${PUBLIC_PATH}`,
+    // 'webpack/hot/only-dev-server',
     `./${APP_ENTRY_POINT}`,
   ]
 };
