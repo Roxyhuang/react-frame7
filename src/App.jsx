@@ -17,7 +17,7 @@ const MainViews = (props, context) => {
             <NavLeft>
               <Link icon="icon-bars" openPanel="left" />
             </NavLeft>
-            <NavCenter sliding>Framework711</NavCenter>
+            <NavCenter sliding>Framework7</NavCenter>
             <NavRight>
               <Link icon="icon-bars" openPanel="right"></Link>
             </NavRight>

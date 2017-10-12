@@ -16,21 +16,8 @@ const webpackDevOutput = {
   filename: 'assets/bundle.js',
 };
 
-// Merges webpackDevOutput and webpackConfig.output
 webpackConfig.output = Object.assign(webpackConfig.output, webpackDevOutput);
 
-webpackConfig.devServer = {
-  // clientLogLevel: "error",
-  // compress: true,
-  // noInfo: true,
-  // quiet: true,
-  // stats: "errors-only",
-};
-
-// This is your testing container, we did
-// that for you, so you don't need to, if
-// you need to change the container template
-// go to the file in `template` below
 const html = config.get('html');
 
 const htmlPlugins = html.map((page) =>
@@ -48,8 +35,7 @@ webpackConfig.plugins.push(
   new webpack.LoaderOptionsPlugin({
     debug: true
   }),
-  // Since we specify --hot mode, we don’t need to add this plugin
-  // It is mutually exclusive with the --hot option.
+
   new webpack.HotModuleReplacementPlugin(),
   new webpack.DefinePlugin({
     __CONFIG__: JSON.stringify(config.get('app')),
@@ -57,19 +43,19 @@ webpackConfig.plugins.push(
       NODE_ENV: JSON.stringify('development'),
     },
   }),
-  // new BrowserSyncPlugin({
-  //   host: 'localhost',
-  //   port: 3001,
-  //   proxy: `http://localhost:${process.env.PORT}/`,
-  //
-  //   // Prevents BrowserSync from automatically opening up the app in your browser
-  //   open: false,
-  //   reloadDelay: 2500,
-  // }, {
-  //   // Disable BrowserSync's browser reload/asset injections feature because
-  //   // Webpack Dev Server handles this for us already
-  //   reload: false,
-  // })
+  new BrowserSyncPlugin({
+    host: 'localhost',
+    port: 3001,
+    proxy: `http://localhost:${process.env.PORT}/`,
+
+    // Prevents BrowserSync from automatically opening up the app in your browser
+    open: false,
+    reloadDelay: 2500,
+  }, {
+    // Disable BrowserSync's browser reload/asset injections feature because
+    // Webpack Dev Server handles this for us already
+    reload: false,
+  })
 );
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat({
@@ -108,8 +94,7 @@ webpackConfig.entry = {
   app: [
     'babel-polyfill',
     'webpack-hot-middleware/client?reload=true',
-    // `webpack-dev-server/client?http://${PUBLIC_PATH}`,
-    // 'webpack/hot/only-dev-server',
+    'webpack/hot/only-dev-server',
     `./${APP_ENTRY_POINT}`,
   ]
 };

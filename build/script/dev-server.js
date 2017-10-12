@@ -20,6 +20,10 @@ const devMiddleware = require('webpack-dev-middleware')(compiler, {
   historyApiFallback: true,
   inline: true,
   progress: true,
+  clientLogLevel: "error",
+  compress: true,
+  noInfo: true,
+  quiet: true,
   stats: {
     colors: true,
     chunks: false,
