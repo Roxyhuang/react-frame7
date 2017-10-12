@@ -47,7 +47,6 @@ webpackConfig.plugins.push(
     host: 'localhost',
     port: 3001,
     proxy: `http://localhost:${process.env.PORT}/`,
-
     // Prevents BrowserSync from automatically opening up the app in your browser
     open: false,
     reloadDelay: 2500,
