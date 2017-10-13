@@ -10,7 +10,7 @@ const option = process.argv[2];
 
 checkVersion();
 
-switch (option){
+switch (option) {
   case 'lint':
     console.log(chalk.green('Start lint'));
     break;

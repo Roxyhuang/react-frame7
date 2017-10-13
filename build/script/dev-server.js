@@ -3,11 +3,11 @@ import express from 'express';
 import http from 'http';
 import https from 'https';
 import webpack from 'webpack';
-const proxyMiddleware = require('http-proxy-middleware');
-const vhost = require('vhost');
-const config = require('../config/client.conf');
+import proxyMiddleware from 'http-proxy-middleware';
+import vhost from 'vhost';
+import config from '../config/client.conf';
 import webpackConfig from '../config/webpack.dev.conf';
-const checkVersions = require('./check-versions');
+import checkVersions from './check-versions';
 
 // Check version for npm and node
 

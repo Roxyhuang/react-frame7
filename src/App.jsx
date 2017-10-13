@@ -1,38 +1,41 @@
 import React from 'react';
-import s from './components/css/app1.less';
 import {
-  Framework7App, Statusbar, Panel, View, Navbar, Pages, Page, ContentBlock, ContentBlockTitle,
+  Framework7App, View, Navbar, Pages, Page, ContentBlock, ContentBlockTitle,
   List, ListItem, Views, NavLeft, Link, NavCenter, NavRight, GridRow, GridCol, Button, Popup,
-  LoginScreen, LoginScreenTitle, ListButton, ListLabel, FormLabel, FormInput
+  LoginScreen, LoginScreenTitle, ListButton, ListLabel, FormLabel, FormInput,
 } from 'framework7-react';
 
-import {routes} from './routes';
+import s from './components/css/app1.less';
+import { routes } from './routes';
 
 
-const MainViews = (props, context) => {
+const MainViews = () => {
   return (
     <Views>
-      <View id="main-view" navbarThrough dynamicNavbar={true} main url="/">
-          <Navbar>
-            <NavLeft>
-              <Link icon="icon-bars" openPanel="left" />
-            </NavLeft>
-            <NavCenter sliding>Framework7</NavCenter>
-            <NavRight>
-              <Link icon="icon-bars" openPanel="right"></Link>
-            </NavRight>
-          </Navbar>
+      <View id="main-view" navbarThrough dynamicNavbar main url="/">
+        <Navbar>
+          <NavLeft>
+            <Link icon="icon-bars" openPanel="left" />
+          </NavLeft>
+          <NavCenter sliding>Framework7</NavCenter>
+          <NavRight>
+            <Link icon="icon-bars" openPanel="right" />
+          </NavRight>
+        </Navbar>
         <Pages>
           <Page>
             <div className={s.test}>test</div>
             <ContentBlockTitle>Welcome to my App</ContentBlockTitle>
             <ContentBlock inner>
-              <p>Duis sed erat ac eros ultrices pharetra id ut tellus. Praesent rhoncus enim ornare ipsum aliquet ultricies. Pellentesque sodales erat quis elementum sagittis.</p>
+              <p>Duis sed erat ac eros ultrices pharetra id ut tellus
+                . Praesent rhoncus enim ornare ipsum aliquet
+                ultricies. Pellentesque sodales erat quis elementum sagittis.
+              </p>
             </ContentBlock>
             <ContentBlockTitle>Navigation</ContentBlockTitle>
             <List>
-              <ListItem link="/about/" title="About"></ListItem>
-              <ListItem link="/form/" title="Form"></ListItem>
+              <ListItem link="/about/" title="About" />
+              <ListItem link="/form/" title="Form" />
             </List>
             <ContentBlockTitle>Side Panels</ContentBlockTitle>
             <ContentBlock>
@@ -73,7 +76,12 @@ const AppPopup = () => (
               <Link closePopup>Close</Link>
             </NavRight>
           </Navbar>
-          <ContentBlock>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, architecto. Cupiditate laudantium rem nesciunt numquam, ipsam. Voluptates omnis, a inventore atque ratione aliquam. Omnis iusto nemo quos ullam obcaecati, quod.</ContentBlock>
+          <ContentBlock>Lorem ipsum dolor sit amet,
+            consectetur adipisicing elit. Neque, architecto. Cupiditate
+            laudantium rem nesciunt numquam, ipsam.
+            Voluptates omnis, a inventore atque ratione aliquam. Omnis iusto
+            nemo quos ullam obcaecati, quod.
+          </ContentBlock>
         </Page>
       </Pages>
     </View>
@@ -109,7 +117,7 @@ const AppLoginScreen = () => (
 );
 
 export const App = () => (
-  //Change themeType to "material" to use the Material theme
+  // Change themeType to "material" to use the Material theme
   <Framework7App themeType="ios" routes={routes}>
     <MainViews />
     <AppPopup />

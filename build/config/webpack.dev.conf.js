@@ -3,13 +3,15 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
 import DashboardPlugin from 'webpack-dashboard/plugin';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 import precss from 'precss';
 import postcssCssnext from 'postcss-cssnext';
 
 import webpackConfig, {JS_SOURCE} from './webpack.base.conf';
-
+import STYLE_CONFIG from '../../.stylelintrc'
 const PUBLIC_PATH = config.get('publicPath');
 const APP_ENTRY_POINT = `${JS_SOURCE}/Main.jsx`;
+
 
 const webpackDevOutput = {
   publicPath: `http://${PUBLIC_PATH}/`,
@@ -54,7 +56,16 @@ webpackConfig.plugins.push(
     // Disable BrowserSync's browser reload/asset injections feature because
     // Webpack Dev Server handles this for us already
     reload: false,
-  })
+  }),
+  new StyleLintPlugin({
+    context: "src",
+    configFile: '.stylelintrc.js',
+    files: '**/*.less',
+    failOnError: false,
+    quiet: false,
+    syntax: 'less'
+    }
+  ),
 );
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat({
