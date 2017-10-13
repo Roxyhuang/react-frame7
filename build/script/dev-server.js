@@ -5,7 +5,7 @@ import https from 'https';
 import webpack from 'webpack';
 import proxyMiddleware from 'http-proxy-middleware';
 import vhost from 'vhost';
-import config from '../config/client.conf';
+import config from 'config';
 import webpackConfig from '../config/webpack.dev.conf';
 
 // Check version for npm and node
@@ -40,7 +40,7 @@ app.use(require('webpack-hot-middleware')(compiler, {
   heartbeat: 1,
 }));
 //
-// // app.use(vhost(config.server.qa.host, app));
+app.use(vhost(`${config.get('vhost')}:${config.get('port')}`, app));
 app.use('/assets', express.static('../../public/assets'));
 //
 if (require.main === module) {
