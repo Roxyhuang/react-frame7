@@ -154,7 +154,7 @@ export default {
   plugins: [
     new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
     new CaseSensitivePathsPlugin(),
-    new ExtractTextPlugin("global.css"),
+    new ExtractTextPlugin("assets/global.css"),
   ],
   module: {
     rules: COMMON_LOADERS,

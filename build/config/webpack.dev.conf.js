@@ -15,7 +15,7 @@ const APP_ENTRY_POINT = `${JS_SOURCE}/Main.jsx`;
 
 const webpackDevOutput = {
   publicPath: `http://${PUBLIC_PATH}/`,
-  filename: 'assets/bundle.js',
+  filename: 'assets/[name].js',
 };
 
 webpackConfig.output = Object.assign(webpackConfig.output, webpackDevOutput);
@@ -106,7 +106,11 @@ webpackConfig.entry = {
     'webpack-hot-middleware/client?reload=true',
     'webpack/hot/only-dev-server',
     `./${APP_ENTRY_POINT}`,
-  ]
+  ],
+  vendors: [
+    'react',
+    'react-dom',
+  ],
 };
 
 export default webpackConfig;
