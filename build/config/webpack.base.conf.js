@@ -119,14 +119,13 @@ const COMMON_LOADERS = [
     ],
   },
   {
-    test: /\.less$/,
-    use: [{
-      loader: "style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // creates style nodes from JS strings
-    }, {
-      loader: "css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // translates CSS into CommonJS
-    }, {
-      loader: "less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // compiles Less to CSS
-    }],
+    test: /\.css|less$/,
+    use: ExtractTextPlugin.extract({
+      fallback: 'style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+      use: ['css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+        'less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]'
+      ]
+    })
   },
   {
     test: /\.js|jsx$/,
@@ -155,6 +154,7 @@ export default {
   plugins: [
     new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
     new CaseSensitivePathsPlugin(),
+    new ExtractTextPlugin("global.css"),
   ],
   module: {
     rules: COMMON_LOADERS,
