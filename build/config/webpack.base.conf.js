@@ -155,6 +155,7 @@ export default {
     new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
     new CaseSensitivePathsPlugin(),
     new ExtractTextPlugin("assets/global.css"),
+    new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/[name].js'}),
   ],
   module: {
     rules: COMMON_LOADERS,

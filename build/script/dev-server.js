@@ -7,7 +7,6 @@ import proxyMiddleware from 'http-proxy-middleware';
 import vhost from 'vhost';
 import config from '../config/client.conf';
 import webpackConfig from '../config/webpack.dev.conf';
-import checkVersions from './check-versions';
 
 // Check version for npm and node
 

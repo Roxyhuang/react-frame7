@@ -110,6 +110,7 @@ webpackConfig.entry = {
   vendors: [
     'react',
     'react-dom',
+    'framework7-react'
   ],
 };
 
