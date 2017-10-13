@@ -128,6 +128,11 @@ const COMMON_LOADERS = [
       loader: "less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // compiles Less to CSS
     }],
   },
+  {
+    test: /\.js|jsx$/,
+    enforce: "pre",
+    loader: "eslint-loader"
+  }
 ];
 
 // Export
