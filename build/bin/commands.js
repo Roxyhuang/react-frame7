@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const checkVersion = require('../script/check-versions');
 
 const host = config.get('host') || 'localhost';
-const port = config.get('port') || '8080';
+const port = config.get('port') || '3000';
 
 const option = process.argv[2];
 
