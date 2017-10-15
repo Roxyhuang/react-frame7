@@ -12,5 +12,14 @@
 
 .test {
   background-color: red;
-  width: 100%;
+  width: 70%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+
+:--heading {
+  font-weight: bold;
 }

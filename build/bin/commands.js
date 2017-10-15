@@ -19,7 +19,11 @@ switch (option) {
     shell.exec(`cross-env HOST=${host} PORT=${port} babel-node build/script/dev-server.js`);
     break;
   case 'build':
-    console.log(chalk.green('Start dev'));
+    console.log(chalk.green('Start release'));
+    shell.exec('cross-env rimraf dist');
+    break;
+  case 'prod':
+    console.log(chalk.green('Start prod'));
     break;
   default:
     console.log(chalk.yellow('Invalid option.'));

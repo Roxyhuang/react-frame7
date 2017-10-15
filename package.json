@@ -108,6 +108,8 @@
     "webpack-s3-plugin": "^1.0.0-rc.0"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dashboard -p 3300 -c blue -t dashboard -- babel-node build/bin/commands.js dev"
+    "dev": "cross-env NODE_ENV=development webpack-dashboard -p 3300 -c blue -t dashboard -- babel-node build/bin/commands.js dev",
+    "build": "cross-env NODE_ENV=release babel-node build/bin/commands.js build",
+    "prod": "cross-env NODE_ENV=prod babel-node build/bin/commands.js prod"
   }
 }
