@@ -16,14 +16,15 @@ switch (option) {
     break;
   case 'dev':
     console.log(chalk.green('Start dev'));
-    shell.exec(`cross-env HOST=${host} PORT=${port} babel-node build/script/dev-server.js`);
+    shell.exec(`cross-env HOST=${host} PORT=${port} NODE_ENV=development babel-node build/script/dev-server.js`);
     break;
   case 'build':
     console.log(chalk.green('Start release'));
-    shell.exec('cross-env rimraf dist');
+    shell.exec('cross-env NODE_ENV=release rimraf dist && babel-node build/script/build.js');
     break;
   case 'prod':
     console.log(chalk.green('Start prod'));
+    shell.exec('cross-env NODE_ENV=prod rimraf dist');
     break;
   default:
     console.log(chalk.yellow('Invalid option.'));
