@@ -122,7 +122,9 @@ const COMMON_LOADERS = [
     use: ExtractTextPlugin.extract({
       fallback: 'style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
       use: ['css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+        'postcss-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
         'less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]'
+
       ]
     })
   },
