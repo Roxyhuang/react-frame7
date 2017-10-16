@@ -25,7 +25,7 @@ process.env.PACKAGE_VERSION = version;
 
 // Defining config variables
 // ================================================================================
-const BUILD_PATH = path.join(__dirname, 'dist');
+const BUILD_PATH = path.join(__dirname, '../../dist');
 
 const COMMON_LOADERS = [
   {
@@ -154,7 +154,11 @@ export default {
   plugins: [
     new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
     new CaseSensitivePathsPlugin(),
-    new ExtractTextPlugin("assets/global.[chunkhash].css"),
+    new ExtractTextPlugin({
+      filename: 'assets/global.[chunkhash].css',
+      disable: false,
+      allChunks: true,
+    }),
     new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/[name].[hash].js'}),
   ],
   module: {
