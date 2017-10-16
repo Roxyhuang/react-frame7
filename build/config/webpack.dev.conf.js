@@ -7,15 +7,17 @@ import StyleLintPlugin from 'stylelint-webpack-plugin';
 import precss from 'precss';
 import postcssCssnext from 'postcss-cssnext';
 
-import webpackConfig, {JS_SOURCE} from './webpack.base.conf';
+import webpackConfig from './webpack.base.conf';
 import STYLE_CONFIG from '../../.stylelintrc'
+
 const PUBLIC_PATH = config.get('publicPath');
-const APP_ENTRY_POINT = `${JS_SOURCE}/Main.jsx`;
+const APP_ENTRY_POINT = `${config.get('jsSourcePath')}/Main.jsx`;
 
 
 const webpackDevOutput = {
   publicPath: `http://${PUBLIC_PATH}/`,
-  filename: 'assets/[name].js',
+  filename: 'assets/[name].[chunkhash].js',
+  chunkFilename: ('assets/[id].[chunkhash].js'),
 };
 
 webpackConfig.output = Object.assign(webpackConfig.output, webpackDevOutput);

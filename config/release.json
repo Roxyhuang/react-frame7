@@ -1,3 +1,4 @@
 {
-  "env": "release"
+  "env": "release",
+  "publicPath": "local.neo.com:3000"
 }
