@@ -11,55 +11,62 @@ import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 
 import webpackConfig from './webpack.base.conf';
-import STYLE_CONFIG from '../../.stylelintrc';
 
 const PUBLIC_PATH = config.get('publicPath');
-const APP_ENTRY_POINT = `${config.get('jsSourcePath')}/Main.jsx`;
+const APP_ENTRY_POINT = config.get('appEntry');
 
-const webpackProdOutput = {
-  publicPath: PUBLIC_PATH,
-  filename: 'assets/[name].[chunkhash].js',
-  chunkFilename: "assets/[id].[chunkhash].js",
+let webpackProdOutput;
+
+let entryConfig = {
+  vendors: [
+    'react',
+    'react-dom',
+    'framework7-react'
+  ]
 };
 
-const html = config.get('html');
+// Config for Javascript file
 
-const htmlPlugins = html.map((page) =>
-  new HtmlWebpackPlugin({
-    title: page.title,
-    // template: `src/assets/template/${page.template}`,
-    template: `public/index.html`,
-    inject: 'body',
-    filename: page.filename,
-    minify: {
-      removeComments: true,
-      collapseWhitespace: true,
-      conservativeCollapse: true,
-    }
-  })
-);
+if (Object.entries(APP_ENTRY_POINT).length > 1) {
+
+  Object.entries(APP_ENTRY_POINT).forEach(item => {
+    Object.assign(entryConfig, {[`${item[0]}/assets/${item[0]}`]: [item[1]]});
+  });
+
+} else if(Object.entries(APP_ENTRY_POINT).length === 1){
+  Object.entries(APP_ENTRY_POINT).forEach(item => {
+    Object.assign(entryConfig, {[item[0]]: [item[1]]});
+  });
+} else {
+  console.log(chalk.red('You must define a entry'));
+}
+
+//Config for output
+
+if (Object.entries(APP_ENTRY_POINT).length > 1) {
+  webpackProdOutput = {
+    publicPath: PUBLIC_PATH,
+    filename: '[name].[chunkhash].js',
+    chunkFilename: "[id].[chunkhash].js",
+  };
+
+} else  if (Object.entries(APP_ENTRY_POINT).length === 1){
+  webpackProdOutput = {
+    publicPath: PUBLIC_PATH,
+    filename: 'assets/[name].[chunkhash].js',
+    chunkFilename: "assets/[id].[chunkhash].js",
+  };
+} else {
+  console.log(chalk.red('You must define a entry'));
+}
 
 webpackConfig.output = Object.assign(webpackConfig.output, webpackProdOutput);
 
 webpackConfig.devtool = 'source-map';
 
-webpackConfig.entry = {
-  app: [
-    'babel-polyfill',
-    'webpack-hot-middleware/client?reload=true',
-    'webpack/hot/only-dev-server',
-    `./${APP_ENTRY_POINT}`,
-  ],
-  vendors: [
-    'react',
-    'react-dom',
-    'framework7-react'
-  ],
-};
+webpackConfig.entry = entryConfig;
 
-webpackConfig.module.rules = webpackConfig.module.rules.concat({
-
-});
+webpackConfig.module.rules = webpackConfig.module.rules.concat({});
 
 webpackConfig.plugins.push(
   new ProgressBarPlugin(),
@@ -77,8 +84,6 @@ webpackConfig.plugins.push(
     minimize: true,
     debug: false,
   }),
-  // how you want your code to be optimized
-  // all configurable
   new webpack.IgnorePlugin(/un~$/),
   new webpack.optimize.UglifyJsPlugin({
     sourceMap: true,
@@ -106,7 +111,50 @@ webpackConfig.plugins.push(
   }),
 );
 
-webpackConfig.plugins = webpackConfig.plugins.concat(htmlPlugins);
+// Config for Html file
+if (Object.entries(APP_ENTRY_POINT).length > 1) {
+  Object.keys(APP_ENTRY_POINT).forEach(name => {
+    webpackConfig.plugins.push(
+      new HtmlWebpackPlugin({
+        filename: `${name}/${name}.html`,
+        template: 'public/index.html',
+        inject: true,
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true
+          // more options:
+          // https://github.com/kangax/html-minifier#options-quick-reference
+        },
+        chunks: [name],
+        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+        chunksSortMode: 'dependency'
+      })
+    );
+  });
+} else  if(Object.entries(APP_ENTRY_POINT).length === 1){
+  Object.keys(APP_ENTRY_POINT).forEach(name => {
+    webpackConfig.plugins.push(
+      new HtmlWebpackPlugin({
+        filename: `${name}.html`,
+        template: 'public/index.html',
+        inject: true,
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true
+          // more options:
+          // https://github.com/kangax/html-minifier#options-quick-reference
+        },
+        chunks: [name],
+        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+        chunksSortMode: 'dependency'
+      })
+    );
+  });
+} else {
+  console.log(chalk.red('You must define a entry'));
+}
 
 export default webpackConfig;
 

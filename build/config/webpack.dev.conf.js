@@ -22,17 +22,14 @@ const webpackDevOutput = {
 
 webpackConfig.output = Object.assign(webpackConfig.output, webpackDevOutput);
 
-const html = config.get('html');
-
-const htmlPlugins = html.map((page) =>
+const htmlPlugins =
   new HtmlWebpackPlugin({
-    title: page.title,
+    title: '111',
     // template: `src/assets/template/${page.template}`,
     template: `public/index.html`,
     inject: 'body',
-    filename: page.filename,
-  })
-);
+    filename: 'index.html',
+  });
 
 webpackConfig.plugins.push(
   new DashboardPlugin({port: 3300}),

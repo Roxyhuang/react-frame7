@@ -6,25 +6,11 @@
   "jsSourcePath": "src",
   "vhost": "local.neo.com",
   "distDirectory": "dist",
-  "appEntry": [
-
-  ],
-  "optimization": {
-    "commonMinCount": 3,
-    "cssExclusion": true,
-    "analyzeMode": false,
-    "analyze": {
-      "port": 8888
-    }
+  "appEntry": {
+    "app": "./src/Main.jsx",
+    "project": "./src/pages/project1/Entry.jsx",
+    "project2": "./src/pages/project2/Entry.jsx"
   },
-  "html": [
-    {
-			"name": "homepage",
-      "title": "Everything is Awesome",
-      "template": "_default.html",
-      "filename": "index.html"
-    }
-  ],
   "app": {
     "description": "config inside 'app' will be injected to your frontend code automatically"
   }
