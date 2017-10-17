@@ -11,6 +11,7 @@
     "project": "./src/pages/project1/Entry.jsx",
     "project2": "./src/pages/project2/Entry.jsx"
   },
+  "index": "/app/app.html",
   "app": {
     "description": "config inside 'app' will be injected to your frontend code automatically"
   }
