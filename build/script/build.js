@@ -1,9 +1,12 @@
 import config from 'config';
 import rm from 'rimraf';
+import shell from 'shelljs';
 import path from 'path';
 import chalk from 'chalk';
 import webpack from 'webpack';
 import webpackConfig from '../config/webpack.prod.conf';
+
+const APP_ENTRY_POINT = config.get('appEntry');
 
 rm(path.join(config.get('distDirectory')), err => {
   if (err) throw err;
@@ -24,3 +27,4 @@ rm(path.join(config.get('distDirectory')), err => {
     ));
   });
 });
+

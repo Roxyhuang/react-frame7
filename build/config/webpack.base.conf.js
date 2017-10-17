@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
@@ -178,15 +179,17 @@ const webpackConfig = {
 };
 
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
-  Object.keys(APP_ENTRY_POINT).forEach(name => {
-    webpackConfig.plugins.push(
-      new ExtractTextPlugin({
-        filename: `${name}/assets/global.[chunkhash].css`,
-        disable: false,
-        allChunks: true,
-      }),
-      new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: `${name}/assets/[name].[hash].js`}),
-    );
+  Object.keys(APP_ENTRY_POINT).forEach((name,index) => {
+    if(index === 0) {
+      webpackConfig.plugins.push(
+        new ExtractTextPlugin({
+          filename: `${name}/assets/global.[chunkhash].css`,
+          disable: false,
+          allChunks: true,
+        }),
+        new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: `${name}/assets/[name].[hash].js`}),
+      );
+    }
   });
 
 } else  if(Object.entries(APP_ENTRY_POINT).length === 1){
