@@ -26,6 +26,7 @@ process.env.PACKAGE_VERSION = version;
 // Defining config variables
 // ================================================================================
 const BUILD_PATH = path.join(__dirname, '../../dist');
+const APP_ENTRY_POINT = config.get('appEntry');
 
 const COMMON_LOADERS = [
   {
@@ -136,9 +137,7 @@ const COMMON_LOADERS = [
 
 // Export
 // ===============================================================================
-export const JS_SOURCE = config.get('jsSourcePath');
-
-export default {
+const webpackConfig = {
   output: {
     path: BUILD_PATH,
   },
@@ -147,19 +146,19 @@ export default {
     modules: [
       path.join(__dirname, 'src'),
       path.join(__dirname, 'assets'),
-      path.join(__dirname, JS_SOURCE),
+      path.join(__dirname, 'src'),
       "node_modules"
     ],
   },
   plugins: [
     new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
     new CaseSensitivePathsPlugin(),
-    new ExtractTextPlugin({
-      filename: 'assets/global.[chunkhash].css',
-      disable: false,
-      allChunks: true,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/[name].[hash].js'}),
+    // new ExtractTextPlugin({
+    //   filename: 'assets/global.[chunkhash].css',
+    //   disable: false,
+    //   allChunks: true,
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/[name].[hash].js'}),
   ],
   module: {
     rules: COMMON_LOADERS,
@@ -177,3 +176,30 @@ export default {
     net:'{}'
   },
 };
+
+if (Object.entries(APP_ENTRY_POINT).length > 1) {
+  Object.keys(APP_ENTRY_POINT).forEach(name => {
+    webpackConfig.plugins.push(
+      new ExtractTextPlugin({
+        filename: `${name}/assets/global.[chunkhash].css`,
+        disable: false,
+        allChunks: true,
+      }),
+      new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: `${name}/assets/[name].[hash].js`}),
+    );
+  });
+
+} else  if(Object.entries(APP_ENTRY_POINT).length === 1){
+    webpackConfig.plugins.push(
+      new ExtractTextPlugin({
+        filename: 'assets/global.[chunkhash].css',
+        disable: false,
+        allChunks: true,
+      }),
+      new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/[name].[hash].js'}),
+    );
+} else {
+  console.log(chalk.red('You must define a entry'));
+}
+
+export default webpackConfig;

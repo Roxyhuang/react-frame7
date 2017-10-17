@@ -93,14 +93,14 @@ webpackConfig.plugins.push(
   //   filename: 'assets/common-[hash].js',
   //   minChunks: optimizationMinChunks,
   // }),
-  new SaveAssetsJson({
-    // path: path.join(__dirname, 'dist'),
-    filename: 'dist/assets/assets.json',
-    prettyPrint: true,
-    metadata: {
-      version: '1.0.0',
-    },
-  }),
+  // new SaveAssetsJson({
+  //   // path: path.join(__dirname, 'dist'),
+  //   filename: 'dist/assets/assets.json',
+  //   prettyPrint: true,
+  //   metadata: {
+  //     version: '1.0.0',
+  //   },
+  // }),
   new StyleLintPlugin({
     context: "src",
     configFile: '.stylelintrc.js',
@@ -111,14 +111,14 @@ webpackConfig.plugins.push(
   }),
 );
 
-// Config for Html file
+// Config for Html file and other plugins
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
   Object.keys(APP_ENTRY_POINT).forEach(name => {
     webpackConfig.plugins.push(
       new HtmlWebpackPlugin({
         filename: `${name}/${name}.html`,
         template: 'public/index.html',
-        inject: true,
+        inject: 'body',
         minify: {
           removeComments: true,
           collapseWhitespace: true,
@@ -126,10 +126,18 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           // more options:
           // https://github.com/kangax/html-minifier#options-quick-reference
         },
-        chunks: [name],
+        // chunks: [name],
         // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        chunksSortMode: 'dependency'
-      })
+        // chunksSortMode: 'dependency'
+      }),
+      new SaveAssetsJson({
+        // path: path.join(__dirname, 'dist'),
+        filename: `dist/${name}/assets/assets.json`,
+        prettyPrint: true,
+        metadata: {
+          version: '1.0.0',
+        },
+      }),
     );
   });
 } else  if(Object.entries(APP_ENTRY_POINT).length === 1){
@@ -138,7 +146,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
       new HtmlWebpackPlugin({
         filename: `${name}.html`,
         template: 'public/index.html',
-        inject: true,
+        inject: 'body',
         minify: {
           removeComments: true,
           collapseWhitespace: true,
@@ -146,10 +154,18 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           // more options:
           // https://github.com/kangax/html-minifier#options-quick-reference
         },
-        chunks: [name],
+        // chunks: [name],
         // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        chunksSortMode: 'dependency'
-      })
+        // chunksSortMode: 'dependency'
+      }),
+      new SaveAssetsJson({
+        // path: path.join(__dirname, 'dist'),
+        filename: 'dist/assets/assets.json',
+        prettyPrint: true,
+        metadata: {
+          version: '1.0.0',
+        },
+      }),
     );
   });
 } else {
