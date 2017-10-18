@@ -88,6 +88,7 @@
     "postcss": "^6.0.13",
     "postcss-cssnext": "^3.0.2",
     "postcss-loader": "^2.0.6",
+    "postcss-px2rem": "^0.3.0",
     "precss": "^2.0.0",
     "progress-bar-webpack-plugin": "^1.10.0",
     "raf": "^3.3.2",

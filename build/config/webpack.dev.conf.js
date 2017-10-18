@@ -1,4 +1,5 @@
 import config from 'config';
+import chalk from 'chalk';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
@@ -76,15 +77,6 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 
 webpackConfig.output = Object.assign(webpackConfig.output, webpackDevOutput);
 
-// const htmlPlugins =
-//   new HtmlWebpackPlugin({
-//     title: '111',
-//     // template: `src/assets/template/${page.template}`,
-//     template: `public/index.html`,
-//     inject: 'body',
-//     filename: 'index.html',
-//   });
-
 webpackConfig.plugins.push(
   new DashboardPlugin({port: 3300}),
   new webpack.LoaderOptionsPlugin({
@@ -102,12 +94,9 @@ webpackConfig.plugins.push(
     host: 'localhost',
     port: 3001,
     proxy: `http://localhost:${process.env.PORT}/`,
-    // Prevents BrowserSync from automatically opening up the app in your browser
     open: false,
     reloadDelay: 2500,
   }, {
-    // Disable BrowserSync's browser reload/asset injections feature because
-    // Webpack Dev Server handles this for us already
     reload: false,
   }),
   new StyleLintPlugin({
@@ -119,26 +108,34 @@ webpackConfig.plugins.push(
     syntax: 'less'
     }
   ),
-  // new OpenBrowserPlugin({
-  //   url: `http://${config.get('vhost')}:${config.get('port')}/${config.get('app')['server-index']}`,
-  // }),
 );
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat(
   {
-    test: /\.less$/,
-    use: [{
-      loader: "style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // creates style nodes from JS strings
-    }, {
-      loader: "css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // translates CSS into CommonJS
-    }, {
-      loader: "less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // compiles Less to CSS
-    }],
+    test: /\.css|less$/,
+    use: [
+      {
+        loader: "style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]"
+      },
+      {
+        loader: "css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]"
+      },
+      {
+        loader: "less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]"
+      },
+      {
+        loader: 'postcss-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+        options: {
+          config: {
+            path: 'build/config/postcss.config.js'
+          }
+        }
+      }
+      ],
   },
 );
 
-// webpackConfig.plugins = webpackConfig.plugins.concat(htmlPlugins);
-// Config for Html file and other plugins
+
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
   Object.keys(APP_ENTRY_POINT).forEach((name,index) => {
     webpackConfig.plugins.push(
@@ -176,20 +173,6 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 }
 
 webpackConfig.devtool = 'cheap-module-eval-source-map';
-
-// webpackConfig.entry = {
-//   app: [
-//     'babel-polyfill',
-//     'webpack-hot-middleware/client?reload=true',
-//     'webpack/hot/only-dev-server',
-//     `./${APP_ENTRY_POINT}`,
-//   ],
-//   vendors: [
-//     'react',
-//     'react-dom',
-//     'framework7-react'
-//   ],
-// };
 
 webpackConfig.entry = entryConfig;
 

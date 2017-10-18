@@ -120,7 +120,6 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(
         'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
         'less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
         'postcss-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
-
       ]
     })
   },
