@@ -1,7 +1,6 @@
 // Created by Neo_Huang
 import express from 'express';
 import http from 'http';
-import opn from 'opn';
 // import https from 'https';
 import webpack from 'webpack';
 import vhost from 'vhost';
