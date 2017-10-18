@@ -30,39 +30,40 @@ const BUILD_PATH = path.join(__dirname, '../../dist');
 const APP_ENTRY_POINT = config.get('appEntry');
 
 const COMMON_LOADERS = [
+  // {
+  //   test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
+  //   use: [
+  //     {
+  //       loader: 'file-loader',
+  //       options: {
+  //         hash: 'sha512',
+  //         digest: 'hex',
+  //         name: 'app/assets/[hash].[ext]',
+  //       }
+  //     },
+  //     {
+  //       loader: 'image-webpack-loader',
+  //       options: {
+  //         query: {
+  //           mozjpeg: {
+  //             progressive: true,
+  //           },
+  //           gifsicle: {
+  //             interlaced: true,
+  //           },
+  //           optipng: {
+  //             optimizationLevel: 7,
+  //           },
+  //           pngquant: {
+  //             quality: '65-90',
+  //             speed: 4
+  //           }
+  //         },
+  //       }
+  //     }
+  //   ],
+  // },
   {
-    test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
-    use: [
-      {
-        loader: 'file-loader',
-        options: {
-          hash: 'sha512',
-          digest: 'hex',
-          name: 'app/assets/[hash].[ext]',
-        }
-      },
-      {
-        loader: 'image-webpack-loader',
-        options: {
-          query: {
-            mozjpeg: {
-              progressive: true,
-            },
-            gifsicle: {
-              interlaced: true,
-            },
-            optipng: {
-              optimizationLevel: 7,
-            },
-            pngquant: {
-              quality: '65-90',
-              speed: 4
-            }
-          },
-        }
-      }
-    ],
-  }, {
     test: /\.(js|jsx)?$/,
     exclude: /node_modules/,
     loader: 'babel-loader',
@@ -189,6 +190,41 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
         }),
         new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: `${name}/assets/[name].[hash].js`}),
       );
+      webpackConfig.module.rules.push(
+        {
+          test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                hash: 'sha512',
+                digest: 'hex',
+                name: `${name}/assets/img/[hash].[ext]`,
+              }
+            },
+            {
+              loader: 'image-webpack-loader',
+              options: {
+                query: {
+                  mozjpeg: {
+                    progressive: true,
+                  },
+                  gifsicle: {
+                    interlaced: true,
+                  },
+                  optipng: {
+                    optimizationLevel: 7,
+                  },
+                  pngquant: {
+                    quality: '65-90',
+                    speed: 4
+                  }
+                },
+              }
+            }
+          ],
+        },
+      )
     }
   });
 
@@ -201,6 +237,41 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
       }),
       new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/[name].[hash].js'}),
     );
+  webpackConfig.module.rules.push(
+    {
+      test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            hash: 'sha512',
+            digest: 'hex',
+            name: '/assets/img/[hash].[ext]',
+          }
+        },
+        {
+          loader: 'image-webpack-loader',
+          options: {
+            query: {
+              mozjpeg: {
+                progressive: true,
+              },
+              gifsicle: {
+                interlaced: true,
+              },
+              optipng: {
+                optimizationLevel: 7,
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              }
+            },
+          }
+        }
+      ],
+    },
+  )
 } else {
   console.log(chalk.red('You must define a entry'));
 }
