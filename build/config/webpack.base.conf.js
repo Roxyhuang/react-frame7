@@ -38,7 +38,7 @@ const COMMON_LOADERS = [
         options: {
           hash: 'sha512',
           digest: 'hex',
-          name: 'assets/[hash].[ext]',
+          name: 'app/assets/[hash].[ext]',
         }
       },
       {

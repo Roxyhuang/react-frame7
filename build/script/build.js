@@ -1,9 +1,12 @@
 import config from 'config';
 import rm from 'rimraf';
+// import shell from 'shelljs';
 import path from 'path';
 import chalk from 'chalk';
 import webpack from 'webpack';
 import webpackConfig from '../config/webpack.prod.conf';
+
+// const APP_ENTRY_POINT = config.get('appEntry');
 
 rm(path.join(config.get('distDirectory')), err => {
   if (err) throw err;
@@ -22,6 +25,13 @@ rm(path.join(config.get('distDirectory')), err => {
       '  Tip: built files are meant to be served over an HTTP server.\n' +
       '  Opening index.html over file:// won\'t work.\n'
     ));
+    // if (Object.entries(APP_ENTRY_POINT).length > 1) {
+    //   Object.keys(APP_ENTRY_POINT).forEach((name) => {
+    //     // console.log(`./dist/${name}/assets/`);
+    //     shell.exec(`ls ./dist/${name}/assets/`);
+    //   });
+    //   // shell.exec(`rm -rf ${process.cwd()}/dist/assets/`);
+    // }
   });
 });
 

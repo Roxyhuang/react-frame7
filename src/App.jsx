@@ -4,7 +4,7 @@ import {
   List, ListItem, Views, NavLeft, Link, NavCenter, NavRight, GridRow, GridCol, Button, Popup,
   LoginScreen, LoginScreenTitle, ListButton, ListLabel, FormLabel, FormInput,
 } from 'framework7-react';
-
+import doge from './assets/doge.jpeg';
 import s from './components/css/app1.less';
 import { routes } from './routes';
 
@@ -25,6 +25,7 @@ const MainViews = () => {
         <Pages>
           <Page>
             <div className={s.test}>test</div>
+            <img src={doge} alt="I'm Doge" />
             <ContentBlockTitle>Welcome to my App</ContentBlockTitle>
             <ContentBlock inner>
               <p>Duis sed erat ac eros ultrices pharetra id ut tellus
