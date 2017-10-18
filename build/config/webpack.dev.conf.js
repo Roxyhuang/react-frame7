@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
 import DashboardPlugin from 'webpack-dashboard/plugin';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
+import OpenBrowserPlugin from 'open-browser-webpack-plugin';//帮助打开浏览器
 import precss from 'precss';
 import postcssCssnext from 'postcss-cssnext';
 
@@ -118,6 +119,9 @@ webpackConfig.plugins.push(
     syntax: 'less'
     }
   ),
+  // new OpenBrowserPlugin({
+  //   url: `http://${config.get('vhost')}:${config.get('port')}/${config.get('app')['server-index']}`,
+  // }),
 );
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat(
@@ -154,7 +158,7 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(
 // webpackConfig.plugins = webpackConfig.plugins.concat(htmlPlugins);
 // Config for Html file and other plugins
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
-  Object.keys(APP_ENTRY_POINT).forEach(name => {
+  Object.keys(APP_ENTRY_POINT).forEach((name,index) => {
     webpackConfig.plugins.push(
       new HtmlWebpackPlugin({
         filename: `${name}/${name}.html`,
@@ -162,14 +166,26 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
         inject: 'body',
       }),
     );
+    if(index === 0) {
+      const serverIndex = config.get('app')['server-index'];
+      webpackConfig.plugins.push(
+        new OpenBrowserPlugin({
+          url: `http://${config.get('vhost')}:${config.get('port')}/${serverIndex ? serverIndex : `${name}/${name}.html`}`,
+        }),
+      )
+    }
   });
 } else  if(Object.entries(APP_ENTRY_POINT).length === 1){
+  const serverIndex = config.get('app')['server-index'];
   Object.keys(APP_ENTRY_POINT).forEach(name => {
     webpackConfig.plugins.push(
       new HtmlWebpackPlugin({
         filename: `${name}.html`,
         template: 'public/index.html',
         inject: 'body',
+      }),
+      new OpenBrowserPlugin({
+        url: `http://${config.get('vhost')}:${config.get('port')}/${serverIndex ? serverIndex : `${name}.html`}`,
       }),
     );
   });

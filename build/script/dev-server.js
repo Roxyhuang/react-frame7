@@ -1,9 +1,9 @@
 // Created by Neo_Huang
 import express from 'express';
 import http from 'http';
-import https from 'https';
+import opn from 'opn';
+// import https from 'https';
 import webpack from 'webpack';
-import proxyMiddleware from 'http-proxy-middleware';
 import vhost from 'vhost';
 import config from 'config';
 import webpackConfig from '../config/webpack.dev.conf';
@@ -13,11 +13,11 @@ import webpackConfig from '../config/webpack.dev.conf';
 const app = express();
 const compiler = webpack(webpackConfig);
 
-app.all('*', function(req, res, next) {
+app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'X-Requested-With');
   res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('X-Powered-By', ' 3.2.1')
+  res.header('X-Powered-By', ' 3.2.1');
   res.header('Content-Type', 'application/json;charset=utf-8');
   next();
 });
@@ -47,7 +47,7 @@ app.use(require('webpack-hot-middleware')(compiler, {
   log: console.log,
   reload: true,
   path: '/__webpack_hmr',
-  heartbeat: 1,
+  heartbeat: 1000,
 }));
 //
 app.use(vhost(`${config.get('vhost')}:${config.get('port')}`, app));
@@ -55,7 +55,7 @@ app.use('/assets', express.static('../../public/assets'));
 //
 if (require.main === module) {
   const server = http.createServer(app);
-  server.listen(3000,  () => {
+  server.listen(3000, () => {
     console.log('Listening on %j', server.address());
   });
 }

@@ -12,7 +12,7 @@
     "project2": "./src/pages/project2/Entry.jsx"
   },
   "app": {
-    "server-index": "/app/app.html",
+    "server-index": "app/app.html",
     "description": "config inside 'app' will be injected to your frontend code automatically"
   }
 }

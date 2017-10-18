@@ -247,7 +247,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           options: {
             hash: 'sha512',
             digest: 'hex',
-            name: '/assets/img/[hash].[ext]',
+            name: 'assets/img/[hash].[ext]',
             publicPath: `http://${config.get('publicPath')}/`,
           }
         },
