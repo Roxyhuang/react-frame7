@@ -13,5 +13,21 @@
   You need to enable JavaScript to run this app.
 </noscript>
 <div id="root"></div>
+<script>
+  (function (doc, win) {
+    var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      recalc = function () {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+        docEl.style.fontSize = 75 * (clientWidth / 750) + 'px';
+      };
+    if (doc.addEventListener) {
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+    }
+  })(document, window);
+</script>
+<script src="/assets/test.js"></script>
 </body>
 </html>

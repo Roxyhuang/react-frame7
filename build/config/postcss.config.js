@@ -1,6 +1,7 @@
   /* eslint-disable global-require */
 
 const pkg = require('../../package.json');
+const px2rem = require('postcss-px2rem');
 
 module.exports = () => ({
   // The list of plugins for PostCSS
@@ -48,7 +49,9 @@ module.exports = () => ({
     // Postcss flexbox bug fixer
     // https://github.com/luisrudge/postcss-flexbugs-fixes
     require('postcss-flexbugs-fixes')(),
-    require('postcss-px2rem'),
+
+    px2rem({remUnit: 75}),
+
     // Add vendor prefixes to CSS rules using values from caniuse.com
     // https://github.com/postcss/autoprefixer
     require('autoprefixer')({
@@ -56,7 +59,7 @@ module.exports = () => ({
       flexbox: 'no-2009',
     }),
   ],
-  postcss: () => {
-    return [px2rem({remUnit: 75})];
-  },
+  // postcss: () => {
+  //   return [px2rem({remUnit: 1})];
+  // },
 });
