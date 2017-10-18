@@ -125,34 +125,16 @@ webpackConfig.plugins.push(
 );
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat(
-  // You can config some dev web-config
-//   {
-//   test: /\.css$/,
-//   use: [
-//     {
-//       loader: 'style-loader',
-//     },
-//     {
-//       loader: 'css-loader',
-//       options: {sourceMap: true, importLoaders: 1}
-//     },
-//     {
-//       loader: 'postcss-loader',
-//       options: {
-//         sourceMap: true,
-//         // https://github.com/postcss/postcss-loader/issues/92
-//         // https://github.com/postcss/postcss-loader/issues/8
-//         plugins: () => [
-//           precss(),
-//           postcssCssnext({
-//             browsers: ['last 2 versions', 'ie >= 9'],
-//             compress: true,
-//           }),
-//         ],
-//       },
-//     },
-//   ],
-// }
+  {
+    test: /\.less$/,
+    use: [{
+      loader: "style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // creates style nodes from JS strings
+    }, {
+      loader: "css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // translates CSS into CommonJS
+    }, {
+      loader: "less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]" // compiles Less to CSS
+    }],
+  },
 );
 
 // webpackConfig.plugins = webpackConfig.plugins.concat(htmlPlugins);

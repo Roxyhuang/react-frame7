@@ -1,7 +1,6 @@
 import chalk from 'chalk';
 import path from 'path';
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import config from 'config';
 import fs from 'fs';
@@ -121,16 +120,6 @@ const COMMON_LOADERS = [
     ],
   },
   {
-    test: /\.css|less$/,
-    use: ExtractTextPlugin.extract({
-      fallback: 'style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
-      use: ['css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
-        'postcss-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
-        'less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]'
-      ]
-    })
-  },
-  {
     test: /\.js|jsx$/,
     enforce: "pre",
     loader: "eslint-loader"
@@ -155,12 +144,6 @@ const webpackConfig = {
   plugins: [
     new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
     new CaseSensitivePathsPlugin(),
-    // new ExtractTextPlugin({
-    //   filename: 'assets/global.[chunkhash].css',
-    //   disable: false,
-    //   allChunks: true,
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/[name].[hash].js'}),
   ],
   module: {
     rules: COMMON_LOADERS,
@@ -183,11 +166,6 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
   Object.keys(APP_ENTRY_POINT).forEach((name,index) => {
     if(index === 0) {
       webpackConfig.plugins.push(
-        new ExtractTextPlugin({
-          filename: `${name}/assets/global.[chunkhash].css`,
-          disable: false,
-          allChunks: true,
-        }),
         new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: `${name}/assets/[name].[hash].js`}),
       );
       webpackConfig.module.rules.push(
@@ -231,11 +209,6 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 
 } else  if(Object.entries(APP_ENTRY_POINT).length === 1){
     webpackConfig.plugins.push(
-      new ExtractTextPlugin({
-        filename: 'assets/global.[chunkhash].css',
-        disable: false,
-        allChunks: true,
-      }),
       new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/[name].[hash].js'}),
     );
   webpackConfig.module.rules.push(

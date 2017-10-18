@@ -111,9 +111,33 @@ webpackConfig.plugins.push(
   }),
 );
 
+webpackConfig.module.rules = webpackConfig.module.rules.concat(
+  {
+    test: /\.css|less$/,
+    use: ExtractTextPlugin.extract({
+      fallback: 'style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+      use: [
+        'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+        'less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+        'postcss-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+
+      ]
+    })
+  },
+);
+
 // Config for Html file and other plugins
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
-  Object.keys(APP_ENTRY_POINT).forEach(name => {
+  Object.keys(APP_ENTRY_POINT).forEach((name, index) => {
+    if(index === 0) {
+      webpackConfig.plugins.push(
+        new ExtractTextPlugin({
+          filename: `${name}/assets/global.[chunkhash].css`,
+          disable: false,
+          allChunks: true,
+        }),
+      )
+    }
     webpackConfig.plugins.push(
       new HtmlWebpackPlugin({
         filename: `${name}/${name}.html`,
@@ -157,6 +181,11 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
         // chunks: [name],
         // necessary to consistently work with multiple chunks via CommonsChunkPlugin
         // chunksSortMode: 'dependency'
+      }),
+      new ExtractTextPlugin({
+        filename: 'assets/global.[chunkhash].css',
+        disable: false,
+        allChunks: true,
       }),
       new SaveAssetsJson({
         // path: path.join(__dirname, 'dist'),
