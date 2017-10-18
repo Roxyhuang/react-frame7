@@ -119,7 +119,15 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(
       use: [
         'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
         'less-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
-        'postcss-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+        {
+          loader: 'postcss-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+          options: {
+            config: {
+              path: 'build/config/postcss.config.js'
+            }
+          }
+        }
+        // 'postcss-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
       ]
     })
   },
