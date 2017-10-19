@@ -142,7 +142,8 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
       new HtmlWebpackPlugin({
         filename: `${name}/${name}.html`,
         template: 'public/index.html',
-        inject: 'body',
+``        inject: 'ture',
+        chunks: [`${name}/assets/${name}`, 'vendors'],
       }),
     );
     if(index === 0) {
@@ -162,6 +163,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
         filename: `${name}.html`,
         template: 'public/index.html',
         inject: 'body',
+        chunks: [name, 'vendors'],
       }),
       new OpenBrowserPlugin({
         url: `http://${config.get('vhost')}:${config.get('port')}/${serverIndex ? serverIndex : `${name}.html`}`,

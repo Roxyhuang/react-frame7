@@ -4,7 +4,7 @@ import {
   List, ListItem, Views, NavLeft, Link, NavCenter, NavRight, GridRow, GridCol, Button, Popup,
   LoginScreen, LoginScreenTitle, ListButton, ListLabel, FormLabel, FormInput,
 } from 'framework7-react';
-import doge from './assets/doge.jpeg';
+import doge from './assets/img/doge.jpeg';
 import s from './components/css/app1.less';
 import { routes } from './routes';
 

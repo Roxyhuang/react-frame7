@@ -40,7 +40,6 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 } else {
   console.log(chalk.red('You must define a entry'));
 }
-
 //Config for output
 
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
@@ -149,7 +148,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
       new HtmlWebpackPlugin({
         filename: `${name}/${name}.html`,
         template: 'public/index.html',
-        inject: 'body',
+        inject:'true',
         minify: {
           removeComments: true,
           collapseWhitespace: true,
@@ -157,7 +156,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           // more options:
           // https://github.com/kangax/html-minifier#options-quick-reference
         },
-        // chunks: [name],
+        chunks: [`${name}/assets/${name}`, 'vendors'],
         // necessary to consistently work with multiple chunks via CommonsChunkPlugin
         // chunksSortMode: 'dependency'
       }),
@@ -177,7 +176,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
       new HtmlWebpackPlugin({
         filename: `${name}.html`,
         template: 'public/index.html',
-        inject: 'body',
+        inject:'true',
         minify: {
           removeComments: true,
           collapseWhitespace: true,
@@ -185,7 +184,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           // more options:
           // https://github.com/kangax/html-minifier#options-quick-reference
         },
-        // chunks: [name],
+        chunks: [name, 'vendors'],
         // necessary to consistently work with multiple chunks via CommonsChunkPlugin
         // chunksSortMode: 'dependency'
       }),
