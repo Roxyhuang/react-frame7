@@ -142,7 +142,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
       new HtmlWebpackPlugin({
         filename: `${name}/${name}.html`,
         template: 'public/index.html',
-``        inject: 'ture',
+        inject: 'ture',
         chunks: [`${name}/assets/${name}`, 'vendors'],
       }),
     );
