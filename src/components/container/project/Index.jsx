@@ -5,6 +5,7 @@ import {
   LoginScreen, LoginScreenTitle, ListButton, ListLabel, FormLabel, FormInput,
 } from 'framework7-react';
 import Backend from '../../../backend/Backend';
+// import output from '../../../test/output';
 import s from './index.less';
 
 class Index extends React.Component {
@@ -17,6 +18,7 @@ class Index extends React.Component {
 
   componentDidMount() {
     Backend.getInstance().getProductList();
+    // output();
   }
   render() {
     return (
