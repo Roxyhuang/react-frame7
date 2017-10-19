@@ -140,6 +140,7 @@ const webpackConfig = {
       path.join(__dirname, 'src'),
       "node_modules"
     ],
+    alias: {},
   },
   plugins: [
     new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
@@ -155,10 +156,12 @@ const webpackConfig = {
     tls: 'empty'
   },
   externals: {
-    console:true,
-    fs:'{}',
-    tls:'{}',
-    net:'{}'
+    // console:true,
+    // fs:'{}',
+    // tls:'{}',
+    // net:'{}'
+    'zepto': 'Zepto',
+    'frame7': 'Framework7',
   },
 };
 

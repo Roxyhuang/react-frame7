@@ -6,8 +6,12 @@
   },
   "globals": {
     "__CONFIG__": true,
-    "__ENV__": true
+    "__ENV__": true,
+    "Zepto": false
   },
+  "plugins": [
+    "react"
+  ],
   "extends": "airbnb",
   "parser": "babel-eslint",
   "parserOptions": {
@@ -16,7 +20,7 @@
       "experimentalObjectRestSpread": true
     }
   },
-  // Rule changes from Airbnb's eslint config
+  // Rule changes from Airbnb"s eslint config
   "rules": {
     "import/no-unresolved": 0,
     "new-cap": 0,
@@ -29,6 +33,9 @@
     "import/prefer-default-export": 0,
     "react/prop-types": 0,
     "react/jsx-filename-extension": 0,
-    "comma-dangle": [2, "always-multiline"]
+    "comma-dangle": [2, "always-multiline"],
+    // Temp config
+    "import/no-extraneous-dependencies": [0],
+    "import/extensions": [0]
   }
 }
