@@ -8,8 +8,8 @@
   "distDirectory": "dist",
   "appEntry": {
     "app": "./src/Main.jsx",
-    "project": "./src/pages/project1/Entry.jsx",
-    "project2": "./src/pages/project2/Entry.jsx"
+    "project": "./src/views/project1/Entry.jsx",
+    "project2": "./src/views/project2/Entry.jsx"
   },
   "app": {
     "server-index": "app/app.html",

@@ -1,6 +1,6 @@
-import { Test1 } from './components/pages/Test1';
-import { Test2 } from './components/pages/Test2';
-import { Test3 } from './components/pages/Test3';
+import { Test1 } from './components/container/Test1';
+import { Test2 } from './components/container/Test2';
+import { Test3 } from './components/container/Test3';
 
 export const routes = [
   {
