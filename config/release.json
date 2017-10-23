@@ -1,4 +1,8 @@
 {
   "env": "release",
-  "publicPath": "local.neo.com:3000"
+  "publicPath": "local.neo.com:3000",
+  "fetchConfig": {
+    "isMock": true,
+    "fetchUrl": ""
+  }
 }

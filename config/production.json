@@ -1,4 +1,8 @@
 {
   "env": "production",
-  "publicPath": "local.99bill:3000"
+  "publicPath": "local.99bill:3000",
+  "fetchConfig": {
+    "isMock": true,
+    "fetchUrl": ""
+  }
 }
