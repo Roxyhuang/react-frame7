@@ -74,7 +74,7 @@ webpackConfig.plugins.push(
   //   to: '/assets/'
   // }]),
   new webpack.DefinePlugin({
-    __CONFIG__: JSON.stringify(config.get('app')),
+    __CONFIG__: '',
     'process.env': {
       NODE_ENV: JSON.stringify('production')
     },

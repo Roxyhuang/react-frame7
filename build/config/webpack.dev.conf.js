@@ -8,7 +8,6 @@ import StyleLintPlugin from 'stylelint-webpack-plugin';
 import OpenBrowserPlugin from 'open-browser-webpack-plugin';//帮助打开浏览器
 
 import webpackConfig from './webpack.base.conf';
-import STYLE_CONFIG from '../../.stylelintrc'
 
 const PUBLIC_PATH = config.get('publicPath');
 const APP_ENTRY_POINT = config.get('appEntry');
@@ -22,12 +21,6 @@ let entryConfig = {
     'framework7-react'
   ]
 };
-
-// const webpackDevOutput = {
-//   publicPath: `http://${PUBLIC_PATH}/`,
-//   filename: 'assets/[name].[chunkhash].js',
-//   chunkFilename: ('assets/[id].[chunkhash].js'),
-// };
 
 // Config for Javascript file
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
@@ -83,9 +76,9 @@ webpackConfig.plugins.push(
 
   new webpack.HotModuleReplacementPlugin(),
   new webpack.DefinePlugin({
-    __CONFIG__: JSON.stringify(config.get('app')),
+    __CONFIG__: '',
     'process.env': {
-      NODE_ENV: JSON.stringify('development'),
+      NODE_ENV: JSON.stringify(config.get('env')),
     },
   }),
   new BrowserSyncPlugin({
@@ -145,7 +138,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
       }),
     );
     if(index === 0) {
-      const serverIndex = config.get('app')['server-index'];
+      const serverIndex = config.get('server-index');
       webpackConfig.plugins.push(
         new OpenBrowserPlugin({
           url: `http://${config.get('vhost')}:${config.get('port')}/${serverIndex ? serverIndex : `${name}/${name}.html`}`,
@@ -154,7 +147,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
     }
   });
 } else  if(Object.entries(APP_ENTRY_POINT).length === 1){
-  const serverIndex = config.get('app')['server-index'];
+  const serverIndex = config.get('server-index');
   Object.keys(APP_ENTRY_POINT).forEach(name => {
     webpackConfig.plugins.push(
       new HtmlWebpackPlugin({

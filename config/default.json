@@ -11,8 +11,5 @@
     "project": "./src/views/project1/Entry.jsx",
     "project2": "./src/views/project2/Entry.jsx"
   },
-  "app": {
-    "server-index": "app/app.html",
-    "description": "config inside 'app' will be injected to your frontend code automatically"
-  }
+  "server-index": "app/app.html"
 }

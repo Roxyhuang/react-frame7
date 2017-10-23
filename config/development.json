@@ -1,8 +1,4 @@
 {
   "env": "development",
-  "publicPath": "local.neo.com:3000",
-  "app": {
-    "description": "you can overwrite the default config",
-    "hello": "Config is configurable"
-  }
+  "publicPath": "local.neo.com:3000"
 }
