@@ -5,18 +5,7 @@ import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import config from 'config';
 import fs from 'fs';
 
-import { SHOULD_BUILD } from '../script/shouldBuild';
-
-// trace which loader is deprecated
-// feel free to remove that if you don't need this feature
 process.traceDeprecation = false;
-
-// Please read the following link if
-// you have no idea how to use this feature
-// https://github.com/motdotla/dotenv
-if(!SHOULD_BUILD) {
-  require('dotenv').config({silent: true});
-}
 
 // Environment variable injection
 // ================================================================================
@@ -29,39 +18,6 @@ const BUILD_PATH = path.join(__dirname, '../../dist');
 const APP_ENTRY_POINT = config.get('appEntry');
 
 const COMMON_LOADERS = [
-  // {
-  //   test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
-  //   use: [
-  //     {
-  //       loader: 'file-loader',
-  //       options: {
-  //         hash: 'sha512',
-  //         digest: 'hex',
-  //         name: 'app/assets/[hash].[ext]',
-  //       }
-  //     },
-  //     {
-  //       loader: 'image-webpack-loader',
-  //       options: {
-  //         query: {
-  //           mozjpeg: {
-  //             progressive: true,
-  //           },
-  //           gifsicle: {
-  //             interlaced: true,
-  //           },
-  //           optipng: {
-  //             optimizationLevel: 7,
-  //           },
-  //           pngquant: {
-  //             quality: '65-90',
-  //             speed: 4
-  //           }
-  //         },
-  //       }
-  //     }
-  //   ],
-  // },
   {
     test: /\.(js|jsx)?$/,
     exclude: /node_modules/,

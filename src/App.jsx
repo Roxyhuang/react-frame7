@@ -32,6 +32,22 @@ const MainViews = () => {
                 . Praesent rhoncus enim ornare ipsum aliquet
                 ultricies. Pellentesque sodales erat quis elementum sagittis.
               </p>
+              <p>Duis sed erat ac eros ultrices pharetra id ut tellus
+                . Praesent rhoncus enim ornare ipsum aliquet
+                ultricies. Pellentesque sodales erat quis elementum sagittis.
+              </p>
+              <p>Duis sed erat ac eros ultrices pharetra id ut tellus
+                . Praesent rhoncus enim ornare ipsum aliquet
+                ultricies. Pellentesque sodales erat quis elementum sagittis.
+              </p>
+              <p>Duis sed erat ac eros ultrices pharetra id ut tellus
+                . Praesent rhoncus enim ornare ipsum aliquet
+                ultricies. Pellentesque sodales erat quis elementum sagittis.
+              </p>
+              <p>Duis sed erat ac eros ultrices pharetra id ut tellus
+                . Praesent rhoncus enim ornare ipsum aliquet
+                ultricies. Pellentesque sodales erat quis elementum sagittis.
+              </p>
             </ContentBlock>
             <ContentBlockTitle>Navigation</ContentBlockTitle>
             <List>

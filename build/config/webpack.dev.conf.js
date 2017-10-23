@@ -6,8 +6,6 @@ import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
 import DashboardPlugin from 'webpack-dashboard/plugin';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 import OpenBrowserPlugin from 'open-browser-webpack-plugin';//帮助打开浏览器
-import precss from 'precss';
-import postcssCssnext from 'postcss-cssnext';
 
 import webpackConfig from './webpack.base.conf';
 import STYLE_CONFIG from '../../.stylelintrc'

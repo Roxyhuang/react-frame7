@@ -42,10 +42,10 @@ module.exports = function () {
     console.log();
     for (let i = 0; i < warnings.length; i++) {
       const warning = warnings[i];
-      console.log('  ' + warning)
+      console.log('  ' + warning);
     }
     console.log();
-    process.exit(1)
+    process.exit(1);
   } else {
     console.log(chalk.green('Env is checked'));
   }

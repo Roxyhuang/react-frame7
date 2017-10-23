@@ -2,6 +2,7 @@
 
 const pkg = require('../../package.json');
 const px2rem = require('postcss-px2rem');
+const postcssCssnext = require('postcss-cssnext');
 
 module.exports = () => ({
 
@@ -36,6 +37,17 @@ module.exports = () => ({
     require('postcss-flexbugs-fixes')(),
 
     px2rem({remUnit: 75}),
+
+    postcssCssnext({
+      features: {
+        customProperties: {
+          variables: {
+            mainColor: "red",
+            altColor: "blue",
+          }
+        }
+      }
+    }),
 
     require('autoprefixer')({
       browsers: pkg.browserslist,
