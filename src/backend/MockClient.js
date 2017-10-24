@@ -7,7 +7,7 @@ import Exception from '../utils/Exception';
 
 const fetch_url = process.env.FETCH_ENV.fetchUrl || "";
 
-class Client {
+class MockClient {
   initialize() {
     // if (token.sessionToken) {
     //   throw new Error('TokenMissing');
@@ -71,8 +71,8 @@ class Client {
   }
 }
 Object.assign(
-  Client.prototype,
+  MockClient.prototype,
   ProductClient,
 );
 
-export default new Client();
+export default new MockClient();
