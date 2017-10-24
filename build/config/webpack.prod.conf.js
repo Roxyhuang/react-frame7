@@ -68,11 +68,6 @@ webpackConfig.entry = entryConfig;
 webpackConfig.module.rules = webpackConfig.module.rules.concat({});
 
 webpackConfig.plugins.push(
-  new ProgressBarPlugin(),
-  // new CopyWebpackPlugin([{
-  //   from: 'public/assets/*',
-  //   to: '/assets/'
-  // }]),
   new webpack.DefinePlugin({
     __CONFIG__: '',
     'process.env': {
@@ -87,19 +82,6 @@ webpackConfig.plugins.push(
   new webpack.optimize.UglifyJsPlugin({
     sourceMap: true,
   }),
-  // new webpack.optimize.CommonsChunkPlugin({
-  //   name: 'common',
-  //   filename: 'assets/common-[hash].js',
-  //   minChunks: optimizationMinChunks,
-  // }),
-  // new SaveAssetsJson({
-  //   // path: path.join(__dirname, 'dist'),
-  //   filename: 'dist/assets/assets.json',
-  //   prettyPrint: true,
-  //   metadata: {
-  //     version: '1.0.0',
-  //   },
-  // }),
   new StyleLintPlugin({
     context: "src",
     configFile: '.stylelintrc.js',
@@ -108,6 +90,7 @@ webpackConfig.plugins.push(
     quiet: false,
     syntax: 'less'
   }),
+  new ProgressBarPlugin(),
 );
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat(
@@ -126,7 +109,6 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(
             }
           }
         }
-        // 'postcss-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
       ]
     })
   },
@@ -168,6 +150,10 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           version: '1.0.0',
         },
       }),
+      new CopyWebpackPlugin([{
+        from: 'public/assets/',
+        to: `${name}/assets/`
+      }]),
     );
   });
 } else  if(Object.entries(APP_ENTRY_POINT).length === 1){
@@ -201,6 +187,10 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           version: '1.0.0',
         },
       }),
+      new CopyWebpackPlugin([{
+        from: 'public/assets/',
+        to: 'assets/'
+      }]),
     );
   });
 } else {

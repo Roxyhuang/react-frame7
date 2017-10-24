@@ -17,7 +17,7 @@ export default class Backend {
       console.log('This is Mock Env!!!!');
       console.log('===========================================');
       MockClient.initialize();
-      res = MockClient
+      res = MockClient;
     }
     return res;
   }
