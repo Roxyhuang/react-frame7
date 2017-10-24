@@ -2,8 +2,9 @@
 
 import 'whatwg-fetch';
 import ProductClient from './mixins/productClient';
-import client_config from './config/global_client';
 import Exception from '../utils/Exception';
+
+const fetch_url = process.env.FETCH_ENV.fetchUrl || "";
 
 class Client {
   initialize() {
@@ -11,23 +12,22 @@ class Client {
     //   throw new Error('TokenMissing');
     // }
 
-    this.API_BASE_URL = client_config.fetch_url;
+    this.API_BASE_URL = fetch_url;
   }
 
   async _fetch(opts) {
     opts = Object.assign({
-      method: 'POST', // By default use post
       url: null,
       body: null,
       callback: null,
     }, opts);
 
     const reqOpts = {
-      method: opts.method,
+      method: opts.method || 'POST',
       headers: {},
       url: null,
     };
-
+    console.log(opts);
     // if (this.sessionToken) {
     //   reqOpts.headers.Authorization = `Bearer ${this.sessionToken}`;
     // }
@@ -45,7 +45,6 @@ class Client {
     }
 
     reqOpts.url = this.API_BASE_URL + opts.url;
-    console.log(reqOpts);
     const res = {};
 
     let response;

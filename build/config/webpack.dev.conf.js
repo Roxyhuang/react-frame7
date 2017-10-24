@@ -79,6 +79,7 @@ webpackConfig.plugins.push(
     __CONFIG__: '',
     'process.env': {
       NODE_ENV: JSON.stringify(config.get('env')),
+      FETCH_ENV: JSON.stringify(config.get('fetchConfig')),
     },
   }),
   new BrowserSyncPlugin({

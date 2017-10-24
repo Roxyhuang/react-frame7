@@ -17,7 +17,7 @@ class Index extends React.Component {
   }
 
   componentDidMount() {
-    Backend.getInstance().getProductList();
+    Backend.getInstance().getProductList({ method: 'GET' });
     // output();
   }
   render() {

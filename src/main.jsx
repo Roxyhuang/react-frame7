@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import $ from 'zepto';
-// import frame7 from 'frame7';
+import $ from 'zepto'; // eslint-disable-line
+// import frame7 from 'frame7'; // eslint-disable-line
 import { App } from './App';
 import './assets/css/global.less';
 
-console.log(process.env.NODE_ENV);
+console.log(process.env.FETCH_ENV);
 // console.log(`jquery cdn>>>>>>>>> ${$}`);
 // console.log(`frame7 cdn>>>>>>>>> ${frame7}`);
 

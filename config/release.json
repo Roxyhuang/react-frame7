@@ -2,7 +2,7 @@
   "env": "release",
   "publicPath": "local.neo.com:3000",
   "fetchConfig": {
-    "isMock": true,
+    "isMock": false,
     "fetchUrl": ""
   }
 }

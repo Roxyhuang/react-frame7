@@ -7,7 +7,8 @@
   "globals": {
     "__CONFIG__": true,
     "__ENV__": true,
-    "Zepto": false
+    "zepto": true,
+    "frame7": true
   },
   "plugins": [
     "react"
@@ -33,9 +34,9 @@
     "import/prefer-default-export": 0,
     "react/prop-types": 0,
     "react/jsx-filename-extension": 0,
-    "comma-dangle": [2, "always-multiline"],
+    "comma-dangle": [2, "always-multiline"]
     // Temp config
-    "import/no-extraneous-dependencies": [0],
-    "import/extensions": [0]
+//    "import/no-extraneous-dependencies": [0],
+//    "import/no-extraneous-dependencies": [0]
   }
 }

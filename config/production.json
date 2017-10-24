@@ -2,7 +2,7 @@
   "env": "production",
   "publicPath": "local.99bill:3000",
   "fetchConfig": {
-    "isMock": true,
+    "isMock": false,
     "fetchUrl": ""
   }
 }
