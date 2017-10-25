@@ -1,6 +1,7 @@
 const shell = require('shelljs');
 const config = require('config');
 const chalk = require('chalk');
+// const os = require('os');
 const checkVersion = require('../script/check-versions');
 
 const host = config.get('host') || 'localhost';

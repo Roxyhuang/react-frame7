@@ -6,6 +6,7 @@ import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import DashboardPlugin from 'webpack-dashboard/plugin';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
+// const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 import OpenBrowserPlugin from 'open-browser-webpack-plugin';//帮助打开浏览器
 
 import webpackConfig from './webpack.base.conf';
@@ -71,6 +72,7 @@ webpackConfig.output = Object.assign(webpackConfig.output, webpackDevOutput);
 
 webpackConfig.plugins.push(
   new DashboardPlugin({port: 3300}),
+  // new ProgressBarPlugin(),
   new webpack.LoaderOptionsPlugin({
     debug: true
   }),
@@ -138,10 +140,10 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
         inject: 'ture',
         chunks: [`${name}/assets/${name}`, 'vendors'],
       }),
-      new CopyWebpackPlugin([{
-        from: 'public/assets/',
-        to: 'assets/'
-      }]),
+      // new CopyWebpackPlugin([{
+      //   from: 'public/assets/',
+      //   to: `${name}/assets/`
+      // }]),
     );
     if(index === 0) {
       const serverIndex = config.get('server-index');
@@ -162,10 +164,10 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
         inject: 'body',
         chunks: [name, 'vendors'],
       }),
-      new CopyWebpackPlugin([{
-        from: 'public/assets/',
-        to: 'assets/'
-      }]),
+      // new CopyWebpackPlugin([{
+      //   from: 'public/assets/',
+      //   to: 'assets/'
+      // }]),
       new OpenBrowserPlugin({
         url: `http://${config.get('vhost')}:${config.get('port')}/${serverIndex ? serverIndex : `${name}.html`}`,
       }),

@@ -49,9 +49,9 @@ module.exports = () => ({
       }
     }),
 
-    require('autoprefixer')({
-      browsers: pkg.browserslist,
-      flexbox: 'no-2009',
-    }),
+    // require('autoprefixer')({
+    //   browsers: pkg.browserslist,
+    //   flexbox: 'no-2009',
+    // }),
   ],
 });
