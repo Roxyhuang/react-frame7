@@ -113,8 +113,9 @@
     "webpack-s3-plugin": "^1.0.0-rc.0"
   },
   "scripts": {
-    "lint": "babel-node build/bin/os.js",
+    "test": "babel-node build/bin/os.js",
     "dev": "webpack-dashboard -p 3300 -c blue -t dashboard -- babel-node build/bin/commands.js dev",
+    "dev:win": "babel-node build/bin/commands.js dev",
     "build": "babel-node build/bin/commands.js build",
     "prod": "babel-node build/bin/commands.js prod"
   }

@@ -147,15 +147,28 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
     );
     if(index === 0) {
       const serverIndex = config.get('server-index');
+      let opnHost;
+      if (config.get('vhost')) {
+        opnHost = `http://${config.get('vhost')}:${config.get('port')}`;
+      } else {
+        opnHost = `http://${config.get('host')}:${config.get('port')}`;
+      }
+
       webpackConfig.plugins.push(
         new OpenBrowserPlugin({
-          url: `http://${config.get('vhost')}:${config.get('port')}/${serverIndex ? serverIndex : `${name}/${name}.html`}`,
+          url: `${opnHost}/${serverIndex ? serverIndex : `${name}/${name}.html`}`,
         }),
       )
     }
   });
 } else  if(Object.entries(APP_ENTRY_POINT).length === 1){
   const serverIndex = config.get('server-index');
+  let opnHost;
+  if (config.get('vhost')) {
+    opnHost = `http://${config.get('vhost')}:${config.get('port')}`;
+  } else {
+    opnHost = `http://${config.get('host')}:${config.get('port')}`;
+  }
   Object.keys(APP_ENTRY_POINT).forEach(name => {
     webpackConfig.plugins.push(
       new HtmlWebpackPlugin({
@@ -169,7 +182,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
       //   to: 'assets/'
       // }]),
       new OpenBrowserPlugin({
-        url: `http://${config.get('vhost')}:${config.get('port')}/${serverIndex ? serverIndex : `${name}.html`}`,
+        url: `${opnHost}/${serverIndex ? serverIndex : `${name}.html`}`,
       }),
     );
   });
