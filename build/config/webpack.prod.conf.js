@@ -6,7 +6,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import SaveAssetsJson from 'assets-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 
@@ -90,7 +89,6 @@ webpackConfig.plugins.push(
     quiet: false,
     syntax: 'less'
   }),
-  new ProgressBarPlugin(),
 );
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat(

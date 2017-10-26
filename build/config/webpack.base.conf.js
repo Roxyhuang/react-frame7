@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import path from 'path';
 import webpack from 'webpack';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
+import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import config from 'config';
 import fs from 'fs';
 
@@ -99,6 +100,7 @@ const webpackConfig = {
     alias: {},
   },
   plugins: [
+    new ProgressBarPlugin(),
     new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
     new CaseSensitivePathsPlugin(),
   ],
@@ -209,5 +211,4 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 } else {
   console.log(chalk.red('You must define a entry'));
 }
-
 export default webpackConfig;

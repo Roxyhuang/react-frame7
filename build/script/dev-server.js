@@ -7,8 +7,6 @@ import vhost from 'vhost';
 import config from 'config';
 import webpackConfig from '../config/webpack.dev.conf';
 
-// Check version for npm and node
-
 const app = express();
 const compiler = webpack(webpackConfig);
 
@@ -29,8 +27,8 @@ const devMiddleware = require('webpack-dev-middleware')(compiler, {
   progress: true,
   clientLogLevel: "error",
   compress: true,
-  noInfo: true,
-  quiet: true,
+  noInfo: false,
+  quiet: false,
   stats: {
     colors: true,
     chunks: false,

@@ -113,10 +113,9 @@
     "webpack-s3-plugin": "^1.0.0-rc.0"
   },
   "scripts": {
-    "test": "babel-node build/bin/os.js",
-    "dev": "webpack-dashboard -p 3300 -c blue -t dashboard -- babel-node build/bin/commands.js dev",
-    "dev:win": "babel-node build/bin/commands.js dev",
-    "build": "babel-node build/bin/commands.js build",
-    "prod": "babel-node build/bin/commands.js prod"
+    "dev": "cross-env HOST=${host} PORT=${port} NODE_ENV=development  webpack-dashboard -p 3300 -c blue -t dashboard -- babel-node build/script/dev-server.js dev",
+    "dev:win": "cross-env HOST=${host} PORT=${port} NODE_ENV=development  babel-node build/script/dev-server.js dev",
+    "build": " cross-env NODE_ENV=release babel-node build/bin/commands.js build",
+    "prod": "cross-env NODE_ENV=production  babel-node build/bin/commands.js prod"
   }
 }
