@@ -1,11 +1,14 @@
-import test from './test';
-
-class Output {
-  @test('HTML')
-  static a() {
-    console.log('test');
-  }
+function doge(target) {
+  target.isDoge; // eslint-disable-line
 }
 
+@doge
+class Dog {
+  isDoge = 1;
+}
 
-export default new Output();
+console.log(Dog.isDoge);
+
+const dog = new Dog();
+
+export default dog;

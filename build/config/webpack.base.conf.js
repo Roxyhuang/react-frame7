@@ -25,7 +25,6 @@ const COMMON_LOADERS = [
     loader: 'babel-loader',
     options: {
       cacheDirectory: true,
-      plugins: ['transform-runtime', 'transform-decorators-legacy'],
     },
   },
   {

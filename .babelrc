@@ -14,10 +14,13 @@
     }
   },
   "plugins": [
+    "transform-decorators-legacy",
+    "transform-runtime",
     ["typecheck", {
       "disable": {
         "production": true
       }
-    }]
+    }
+    ]
   ]
 }

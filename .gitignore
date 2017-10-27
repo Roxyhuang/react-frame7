@@ -15,3 +15,4 @@ _ucloud/
 .project/
 package-lock.json
 */qshell_windows_amd64.exe
+.DS_Store
