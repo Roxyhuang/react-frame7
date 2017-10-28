@@ -3,10 +3,9 @@ import chalk from 'chalk';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+// import CopyWebpackPlugin from 'copy-webpack-plugin';
 import DashboardPlugin from 'webpack-dashboard/plugin';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
-// const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 import OpenBrowserPlugin from 'open-browser-webpack-plugin';//帮助打开浏览器
 
 import webpackConfig from './webpack.base.conf';
@@ -72,7 +71,6 @@ webpackConfig.output = Object.assign(webpackConfig.output, webpackDevOutput);
 
 webpackConfig.plugins.push(
   new DashboardPlugin({port: 3300}),
-  // new ProgressBarPlugin(),
   new webpack.LoaderOptionsPlugin({
     debug: true
   }),
