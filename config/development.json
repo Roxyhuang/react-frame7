@@ -1,6 +1,9 @@
 {
   "env": "development",
   "publicPath": "http://localhost:3000",
+  "host": "localhost",
+  "port": "3000",
+  "vhost": "",
   "fetchConfig": {
       "isMock": true,
       "fetchUrl": "http://192.168.127.151:8080/mockjs/2/"

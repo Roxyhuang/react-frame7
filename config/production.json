@@ -1,6 +1,8 @@
 {
   "env": "production",
   "publicPath": "http://local.99bill:3000",
+  "host": "localhost",
+  "port": "3000",
   "fetchConfig": {
     "isMock": false,
     "fetchUrl": ""

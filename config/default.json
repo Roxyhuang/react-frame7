@@ -4,7 +4,6 @@
   "host": "localhost",
   "port": "3000",
   "jsSourcePath": "src",
-  "vhost": "",
   "distDirectory": "dist",
   "appEntry": {
     "app": "./src/Main.jsx",
