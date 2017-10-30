@@ -14,17 +14,17 @@ switch (option) {
     console.log(chalk.green('Start lint'));
     break;
   case 'build':
-    console.log(chalk.green('building for release...'));
+    // console.log(chalk.green('building for release...'));
     process.env.NODE_ENV = 'release';
     require('../script/build').default();
     break;
   case 'prod':
-    console.log(chalk.green('building for prod...'));
+    // console.log(chalk.green('building for prod...'));
     process.env.NODE_ENV = 'production';
     require('../script/build').default();
     break;
   case 'stage':
-    console.log(chalk.green('building for stage...'));
+    // console.log(chalk.green('building for stage...'));
     process.env.NODE_ENV = 'stage';
     require('../script/build').default();
     break;

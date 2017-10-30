@@ -6,8 +6,11 @@ import webpack from 'webpack';
 import vhost from 'vhost';
 import config from 'config';
 import webpackConfig from '../config/webpack.dev.conf';
+const checkVersion = require('../script/check-versions');
 
 const APP_ENTRY_POINT = config.get('appEntry');
+
+checkVersion();
 
 const app = express();
 const compiler = webpack(webpackConfig);

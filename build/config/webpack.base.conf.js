@@ -7,7 +7,9 @@ import config from 'config';
 import fs from 'fs';
 
 process.traceDeprecation = false;
-console.log(process.env.NODE_ENV);
+
+console.log(chalk.green(`building for ${process.env.NODE_ENV}...`));
+
 // Environment variable injection
 // ================================================================================
 const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
