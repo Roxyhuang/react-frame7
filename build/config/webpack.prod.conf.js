@@ -127,12 +127,8 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           removeComments: true,
           collapseWhitespace: true,
           removeAttributeQuotes: true
-          // more options:
-          // https://github.com/kangax/html-minifier#options-quick-reference
         },
         chunks: [`${name}/assets/${name}`, 'vendors'],
-        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        // chunksSortMode: 'dependency'
       }),
       new SaveAssetsJson({
         // path: path.join(__dirname, 'dist'),
@@ -159,12 +155,8 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           removeComments: true,
           collapseWhitespace: true,
           removeAttributeQuotes: true
-          // more options:
-          // https://github.com/kangax/html-minifier#options-quick-reference
         },
         chunks: [name, 'vendors'],
-        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        // chunksSortMode: 'dependency'
       }),
       new ExtractTextPlugin({
         filename: 'assets/global.[chunkhash].css',
