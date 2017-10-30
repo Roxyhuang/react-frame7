@@ -67,12 +67,6 @@ webpackConfig.entry = entryConfig;
 webpackConfig.module.rules = webpackConfig.module.rules.concat({});
 
 webpackConfig.plugins.push(
-  new webpack.DefinePlugin({
-    __CONFIG__: '',
-    'process.env': {
-      NODE_ENV: JSON.stringify('production')
-    },
-  }),
   new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false,

@@ -116,6 +116,7 @@
     "dev": "cross-env HOST=${host} PORT=${port} NODE_ENV=development  webpack-dashboard -p 3300 -c blue -t dashboard -- babel-node build/script/dev-server.js dev",
     "dev:win": "cross-env HOST=${host} PORT=${port} NODE_ENV=development  babel-node build/script/dev-server.js dev",
     "build": " cross-env NODE_ENV=release babel-node build/bin/commands.js build",
+    "stage": " cross-env NODE_ENV=stage babel-node build/bin/commands.js stage",
     "prod": "cross-env NODE_ENV=production  babel-node build/bin/commands.js prod"
   }
 }

@@ -7,7 +7,7 @@ import config from 'config';
 import fs from 'fs';
 
 process.traceDeprecation = false;
-
+console.log(process.env.NODE_ENV);
 // Environment variable injection
 // ================================================================================
 const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
@@ -102,6 +102,13 @@ const webpackConfig = {
     new ProgressBarPlugin(),
     new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
     new CaseSensitivePathsPlugin(),
+    new webpack.DefinePlugin({
+      __CONFIG__: '',
+      'process.env': {
+        NODE_ENV: JSON.stringify(config.get('env')),
+        FETCH_ENV: JSON.stringify(config.get('fetchConfig')),
+      },
+    }),
   ],
   module: {
     rules: COMMON_LOADERS,
@@ -138,7 +145,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
                 hash: 'sha512',
                 digest: 'hex',
                 name: `${name}/assets/img/[hash].[ext]`,
-                publicPath: `http://${config.get('publicPath')}/`,
+                publicPath: `${config.get('publicPath')}/`,
               }
             },
             {
@@ -181,7 +188,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
             hash: 'sha512',
             digest: 'hex',
             name: 'assets/img/[hash].[ext]',
-            publicPath: `http://${config.get('publicPath')}/`,
+            publicPath: `${config.get('publicPath')}/`,
           }
         },
         {

@@ -51,14 +51,14 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
   webpackDevOutput = {
-    publicPath: `http://${PUBLIC_PATH}/`,
+    publicPath: `${PUBLIC_PATH}/`,
     filename: '[name].[chunkhash].js',
     chunkFilename: "[id].[chunkhash].js",
   };
 
 } else  if (Object.entries(APP_ENTRY_POINT).length === 1){
   webpackDevOutput = {
-    publicPath: `http://${PUBLIC_PATH}/`,
+    publicPath: `${PUBLIC_PATH}/`,
     filename: 'assets/[name].[chunkhash].js',
     chunkFilename: "assets/[id].[chunkhash].js",
   };
@@ -75,13 +75,6 @@ webpackConfig.plugins.push(
   }),
 
   new webpack.HotModuleReplacementPlugin(),
-  new webpack.DefinePlugin({
-    __CONFIG__: '',
-    'process.env': {
-      NODE_ENV: JSON.stringify(config.get('env')),
-      FETCH_ENV: JSON.stringify(config.get('fetchConfig')),
-    },
-  }),
   new BrowserSyncPlugin({
     host: 'localhost',
     port: 3001,
@@ -134,7 +127,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
       new HtmlWebpackPlugin({
         filename: `${name}/${name}.html`,
         template: 'public/index.html',
-        inject: 'ture',
+        inject: 'true',
         chunks: [`${name}/assets/${name}`, 'vendors'],
       }),
     );
