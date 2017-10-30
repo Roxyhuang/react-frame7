@@ -7,6 +7,8 @@ import vhost from 'vhost';
 import config from 'config';
 import webpackConfig from '../config/webpack.dev.conf';
 
+const APP_ENTRY_POINT = config.get('appEntry');
+
 const app = express();
 const compiler = webpack(webpackConfig);
 
@@ -51,7 +53,15 @@ if (config.get('vhost')) {
   app.use(vhost(`${config.get('host')}:${config.get('port')}`, app));
 }
 
-app.use('/assets', express.static('../../public/assets'));
+
+
+if (Object.entries(APP_ENTRY_POINT).length > 1) {
+  Object.keys(APP_ENTRY_POINT).forEach((name) => {
+    app.use(`/${name}/assets`, express.static('public/assets'));
+  });
+} else {
+  app.use('/assets', express.static('public/assets'));
+}
 
 if (require.main === module) {
   const server = http.createServer(app);
