@@ -102,13 +102,14 @@ const webpackConfig = {
   },
   plugins: [
     new ProgressBarPlugin(),
-    new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
+    new webpack.IgnorePlugin(/vertx/),
     new CaseSensitivePathsPlugin(),
     new webpack.DefinePlugin({
       __CONFIG__: '',
       'process.env': {
         NODE_ENV: JSON.stringify(config.get('env')),
         FETCH_ENV: JSON.stringify(config.get('fetchConfig')),
+        APP_VERSION : JSON.stringify(process.env.PACKAGE_VERSION)
       },
     }),
   ],
@@ -135,7 +136,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
   Object.keys(APP_ENTRY_POINT).forEach((name,index) => {
     if(index === 0) {
       webpackConfig.plugins.push(
-        new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: `${name}/assets/[name].[hash].js`}),
+        new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: `${name}/assets/js/[name].[hash].js`}),
       );
       webpackConfig.module.rules.push(
         {
@@ -178,7 +179,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 
 } else  if(Object.entries(APP_ENTRY_POINT).length === 1){
     webpackConfig.plugins.push(
-      new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/[name].[hash].js'}),
+      new webpack.optimize.CommonsChunkPlugin({ name:'vendors',  filename: 'assets/js/[name].[hash].js'}),
     );
   webpackConfig.module.rules.push(
     {

@@ -6,9 +6,11 @@
   "jsSourcePath": "src",
   "distDirectory": "dist",
   "appEntry": {
-    "app": "./src/Main.jsx",
-    "project": "./src/views/project1/Entry.jsx",
-    "project2": "./src/views/project2/Entry.jsx"
+    "app": "./src/Main.jsx"
+//    "app": "./src/Main.jsx",
+//    "project": "./src/views/project1/Entry.jsx",
+//    "project2": "./src/views/project2/Entry.jsx"
   },
-  "server-index": "app/app.html"
+//  "server-index": "app/app.html"
+  "server-index": "app.html"
 }

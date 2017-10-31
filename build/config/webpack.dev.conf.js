@@ -5,7 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
 import DashboardPlugin from 'webpack-dashboard/plugin';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
-import OpenBrowserPlugin from 'open-browser-webpack-plugin';//帮助打开浏览器
+import OpenBrowserPlugin from 'open-browser-webpack-plugin';
 
 import webpackConfig from './webpack.base.conf';
 
@@ -26,7 +26,7 @@ let entryConfig = {
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
 
   Object.entries(APP_ENTRY_POINT).forEach(item => {
-    Object.assign(entryConfig, {[`${item[0]}/assets/${item[0]}`]: [
+    Object.assign(entryConfig, {[`${item[0]}/assets/js/${item[0]}`]: [
       'babel-polyfill',
       'webpack-hot-middleware/client?reload=true',
       'webpack/hot/only-dev-server',
@@ -36,7 +36,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 
 } else if(Object.entries(APP_ENTRY_POINT).length === 1){
   Object.entries(APP_ENTRY_POINT).forEach(item => {
-    Object.assign(entryConfig, {[item[0]]: [
+    Object.assign(entryConfig, {[`assets/js/${item[0]}`]: [
       'babel-polyfill',
       'webpack-hot-middleware/client?reload=true',
       'webpack/hot/only-dev-server',
@@ -59,8 +59,8 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 } else  if (Object.entries(APP_ENTRY_POINT).length === 1){
   webpackDevOutput = {
     publicPath: `${PUBLIC_PATH}/`,
-    filename: 'assets/[name].[chunkhash].js',
-    chunkFilename: "assets/[id].[chunkhash].js",
+    filename: '[name].[chunkhash].js',
+    chunkFilename: "[id].[chunkhash].js",
   };
 } else {
   console.log(chalk.red('You must define a entry'));
@@ -128,7 +128,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
         filename: `${name}/${name}.html`,
         template: 'public/index.html',
         inject: 'true',
-        chunks: [`${name}/assets/${name}`, 'vendors'],
+        chunks: [`${name}/assets/js/${name}`, 'vendors'],
       }),
     );
     if(index === 0) {
@@ -161,7 +161,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
         filename: `${name}.html`,
         template: 'public/index.html',
         inject: 'body',
-        chunks: [name, 'vendors'],
+        chunks: [`assets/js/${name}`, 'vendors'],
       }),
       new OpenBrowserPlugin({
         url: `${opnHost}/${serverIndex ? serverIndex : `${name}.html`}`,

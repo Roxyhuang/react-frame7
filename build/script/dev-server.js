@@ -1,4 +1,3 @@
-// Created by Neo_Huang
 import express from 'express';
 import http from 'http';
 // import https from 'https';
@@ -6,7 +5,7 @@ import webpack from 'webpack';
 import vhost from 'vhost';
 import config from 'config';
 import webpackConfig from '../config/webpack.dev.conf';
-const checkVersion = require('../script/check-versions');
+import checkVersion from '../script/check-versions';
 
 const APP_ENTRY_POINT = config.get('appEntry');
 
@@ -50,6 +49,7 @@ app.use(require('webpack-hot-middleware')(compiler, {
   path: '/__webpack_hmr',
   heartbeat: 1000,
 }));
+
 if (config.get('vhost')) {
   app.use(vhost(`${config.get('vhost')}:${config.get('port')}`, app));
 } else {

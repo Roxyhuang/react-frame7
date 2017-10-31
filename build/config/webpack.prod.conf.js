@@ -1,4 +1,3 @@
-import path from 'path';
 import config from 'config';
 import webpack from 'webpack';
 import chalk from 'chalk';
@@ -29,12 +28,12 @@ let entryConfig = {
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
 
   Object.entries(APP_ENTRY_POINT).forEach(item => {
-    Object.assign(entryConfig, {[`${item[0]}/assets/${item[0]}`]: [item[1]]});
+    Object.assign(entryConfig, {[`${item[0]}/assets/js/${item[0]}`]: [item[1]]});
   });
 
 } else if(Object.entries(APP_ENTRY_POINT).length === 1){
   Object.entries(APP_ENTRY_POINT).forEach(item => {
-    Object.assign(entryConfig, {[item[0]]: [item[1]]});
+    Object.assign(entryConfig, {[`assets/js/${item[0]}`]: [item[1]]});
   });
 } else {
   console.log(chalk.red('You must define a entry'));
@@ -43,16 +42,16 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
 
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
   webpackProdOutput = {
-    publicPath: PUBLIC_PATH,
+    publicPath: `${PUBLIC_PATH}/`,
     filename: '[name].[chunkhash].js',
     chunkFilename: "[id].[chunkhash].js",
   };
 
 } else  if (Object.entries(APP_ENTRY_POINT).length === 1){
   webpackProdOutput = {
-    publicPath: PUBLIC_PATH,
-    filename: 'assets/[name].[chunkhash].js',
-    chunkFilename: "assets/[id].[chunkhash].js",
+    publicPath: `${PUBLIC_PATH}/`,
+    filename: '[name].[chunkhash].js',
+    chunkFilename: "[id].[chunkhash].js",
   };
 } else {
   console.log(chalk.red('You must define a entry'));
@@ -112,7 +111,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
     if(index === 0) {
       webpackConfig.plugins.push(
         new ExtractTextPlugin({
-          filename: `${name}/assets/global.[chunkhash].css`,
+          filename: `${name}/assets/css/global.[chunkhash].css`,
           disable: false,
           allChunks: true,
         }),
@@ -128,14 +127,14 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           collapseWhitespace: true,
           removeAttributeQuotes: true
         },
-        chunks: [`${name}/assets/${name}`, 'vendors'],
+        chunks: [`${name}/assets/js/${name}`, 'vendors'],
       }),
       new SaveAssetsJson({
         // path: path.join(__dirname, 'dist'),
         filename: `dist/${name}/assets/assets.json`,
         prettyPrint: true,
         metadata: {
-          version: '1.0.0',
+          version: process.env.PACKAGE_VERSION,
         },
       }),
       new CopyWebpackPlugin([{
@@ -156,10 +155,10 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
           collapseWhitespace: true,
           removeAttributeQuotes: true
         },
-        chunks: [name, 'vendors'],
+        chunks: [`assets/js/${name}`, 'vendors'],
       }),
       new ExtractTextPlugin({
-        filename: 'assets/global.[chunkhash].css',
+        filename: 'assets/css/global.[chunkhash].css',
         disable: false,
         allChunks: true,
       }),
@@ -168,7 +167,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
         filename: 'dist/assets/assets.json',
         prettyPrint: true,
         metadata: {
-          version: '1.0.0',
+          version: process.env.PACKAGE_VERSION,
         },
       }),
       new CopyWebpackPlugin([{

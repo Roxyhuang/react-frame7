@@ -6,5 +6,8 @@
   "fetchConfig": {
     "isMock": false,
     "fetchUrl": ""
+  },
+  "zipConfig": {
+    "dirName": ""
   }
 }
