@@ -8,6 +8,6 @@
     "fetchUrl": ""
   },
   "zipConfig": {
-    "dirName": ""
+    "dirName": "test"
   }
 }
