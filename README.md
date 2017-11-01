@@ -80,7 +80,7 @@ npm run prod
     |---src/-- |---assets/ ---|---css/ # global style
     |          |           ---|---img/ # image
     |          |---backend/---|mixin/ #  request function
-    |          |              |---Backend.js # 请求区分渠道
+    |          |              |---Backend.js # muti client file
     |          |              |---Client.js  # client file
     |          |---components/|---include/ # normal components
     |          |              |---container/ # views container
