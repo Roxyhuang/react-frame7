@@ -20,6 +20,15 @@ process.env.PACKAGE_VERSION = version;
 const BUILD_PATH = path.join(__dirname, '../../dist');
 const APP_ENTRY_POINT = config.get('appEntry');
 
+let PUBLIC_PATH;
+
+if (process.env.NODE_ENV === 'development') {
+  PUBLIC_PATH = '.'
+} else {
+  PUBLIC_PATH = config.get('publicPath');
+}
+
+
 const COMMON_LOADERS = [
   {
     test: /\.(js|jsx)?$/,
@@ -148,7 +157,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
                 hash: 'sha512',
                 digest: 'hex',
                 name: `${name}/assets/img/[hash].[ext]`,
-                publicPath: `${config.get('publicPath')}/`,
+                publicPath: `${PUBLIC_PATH}/`,
               }
             },
             {
@@ -191,7 +200,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
             hash: 'sha512',
             digest: 'hex',
             name: 'assets/img/[hash].[ext]',
-            publicPath: `${config.get('publicPath')}/`,
+            publicPath: `${PUBLIC_PATH}/`,
           }
         },
         {

@@ -9,7 +9,14 @@ import OpenBrowserPlugin from 'open-browser-webpack-plugin';
 
 import webpackConfig from './webpack.base.conf';
 
-const PUBLIC_PATH = config.get('publicPath');
+let PUBLIC_PATH;
+
+if (process.env.NODE_ENV === 'development') {
+  PUBLIC_PATH = '.'
+} else {
+  PUBLIC_PATH = config.get('publicPath');
+}
+
 const APP_ENTRY_POINT = config.get('appEntry');
 
 let webpackDevOutput;
@@ -133,12 +140,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
     );
     if(index === 0) {
       const serverIndex = config.get('server-index');
-      let opnHost;
-      if (config.get('vhost')) {
-        opnHost = `http://${config.get('vhost')}:${config.get('port')}`;
-      } else {
-        opnHost = `http://${config.get('host')}:${config.get('port')}`;
-      }
+      const opnHost = `http://${config.get('host')}:${config.get('port')}`;
 
       webpackConfig.plugins.push(
         new OpenBrowserPlugin({
@@ -149,12 +151,8 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
   });
 } else  if(Object.entries(APP_ENTRY_POINT).length === 1){
   const serverIndex = config.get('server-index');
-  let opnHost;
-  if (config.get('vhost')) {
-    opnHost = `http://${config.get('vhost')}:${config.get('port')}`;
-  } else {
-    opnHost = `http://${config.get('host')}:${config.get('port')}`;
-  }
+  const opnHost = `http://${config.get('host')}:${config.get('port')}`;
+
   Object.keys(APP_ENTRY_POINT).forEach(name => {
     webpackConfig.plugins.push(
       new HtmlWebpackPlugin({

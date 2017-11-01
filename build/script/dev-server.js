@@ -2,7 +2,6 @@ import express from 'express';
 import http from 'http';
 // import https from 'https';
 import webpack from 'webpack';
-import vhost from 'vhost';
 import config from 'config';
 import webpackConfig from '../config/webpack.dev.conf';
 import checkVersion from '../script/check-versions';
@@ -50,14 +49,6 @@ app.use(require('webpack-hot-middleware')(compiler, {
   path: '/__webpack_hmr',
   heartbeat: 1000,
 }));
-
-if (config.get('vhost')) {
-  app.use(vhost(`${config.get('vhost')}:${config.get('port')}`, app));
-} else {
-  app.use(vhost(`${config.get('host')}:${config.get('port')}`, app));
-}
-
-
 
 if (Object.entries(APP_ENTRY_POINT).length > 1) {
   Object.keys(APP_ENTRY_POINT).forEach((name) => {
