@@ -75,7 +75,7 @@ npm run prod
     |             |---production.json # prod config file
     |             |---release.json # release config file
     |
-    |---dist/ #编译后生成文件目录
+    |---dist/ #  dist file
     |
     |---src/-- |---assets/ ---|---css/ # global style
     |          |           ---|---img/ # image
