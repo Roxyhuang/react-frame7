@@ -78,7 +78,7 @@ webpackConfig.plugins.push(
   new BrowserSyncPlugin({
     host: 'localhost',
     port: 3001,
-    proxy: `http://localhost:${process.env.PORT}/`,
+    proxy: `http://localhost:3000/`,
     open: false,
     reloadDelay: 2500,
   }, {
