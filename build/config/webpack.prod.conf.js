@@ -44,14 +44,14 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
   webpackProdOutput = {
     publicPath: `${PUBLIC_PATH}/`,
     filename: '[name].[chunkhash].js',
-    chunkFilename: "[id].[chunkhash].js",
+    chunkFilename: `${Object.entries(APP_ENTRY_POINT)[0][0]}/assets/js/[id].[chunkhash].js`,
   };
 
 } else  if (Object.entries(APP_ENTRY_POINT).length === 1){
   webpackProdOutput = {
     publicPath: `${PUBLIC_PATH}/`,
     filename: '[name].[chunkhash].js',
-    chunkFilename: "[id].[chunkhash].js",
+    chunkFilename: "assets/js/[id].[chunkhash].js",
   };
 } else {
   console.log(chalk.red('You must define a entry'));
@@ -111,6 +111,7 @@ if (Object.entries(APP_ENTRY_POINT).length > 1) {
     if(index === 0) {
       webpackConfig.plugins.push(
         new ExtractTextPlugin({
+
           filename: `${name}/assets/css/global.[chunkhash].css`,
           disable: false,
           allChunks: true,
