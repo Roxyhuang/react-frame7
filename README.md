@@ -109,7 +109,7 @@ npm run prod
 
 #### 1.core
 
-#####（1）core dependency
+（1）core dependency
 
 - react
 - react dom
@@ -117,7 +117,7 @@ npm run prod
 - webpack
 - babel
 
-#####（2）style
+（2）style
 - less
 - postcss
 

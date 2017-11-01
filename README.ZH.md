@@ -108,7 +108,7 @@ npm run prod
 
 #### 1.核心依赖
 
-#####（1）核心库
+（1）核心库
 
 - react
 - react dom
@@ -116,7 +116,7 @@ npm run prod
 - webpack
 - babel
 
-#####（2）样式
+（2）样式
 
 - less
 - postcss
