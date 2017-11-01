@@ -106,8 +106,6 @@ npm run prod
 
 ### 依赖配置
 
-前文中已搭建了私有的npm仓库，因此包管理全部依赖npm
-
 #### 1.核心依赖
 
 #####（1）核心库
@@ -126,23 +124,32 @@ npm run prod
 ### 移动适配、浏览器适配以及设计稿还原
 
 - 项目中已配置postcss 写样式时直接根据750设计稿编写px即可
-- 自动浏览器适配了
+- 自动浏览器适配
 - 支持js获取clientWidth方案
 - 支持flexible方案
 
 ### 关于图片引入
+
 - 小图自动转base 64
 - 单入口图片自动在下的assets/img目录
 - 多入口文件自动生成至[name]/assets/img
 
 ### 关于样式引入
+
 - 采用了 css in module的方式编写css
 - 也可以采用global的方式引入css
 - 样式中的图片直接使用相对路径即可
 
 ### 关于项目配置
+
 采用了config模块，可以在项目根目录下config下编写json文件，并可以通过
 
 ```javascript
+import config from 'config';
 const test = config.get('test');
 ```
+
+### 仍存在问题
+
+- js模块分割方案暂未成熟
+- css模块分割方案暂未成熟
