@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 // import frame7 from 'frame7'; // eslint-disable-line
 import output from './test/output';
 import { App } from './App';
+import '../node_modules/test/test.css';
 import './assets/css/global.less';
 
 console.log(process.env.FETCH_ENV);

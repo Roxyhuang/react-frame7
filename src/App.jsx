@@ -25,6 +25,7 @@ const MainViews = () => {
         <Pages>
           <Page>
             <div className={s.test}>test</div>
+            <div className="test1">213</div>
             <img src={doge} alt="I'm Doge" />
             <ContentBlockTitle>Welcome to my App</ContentBlockTitle>
             <ContentBlock inner>

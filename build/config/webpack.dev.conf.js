@@ -1,5 +1,6 @@
 import config from 'config';
 import chalk from 'chalk';
+import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
@@ -105,6 +106,7 @@ webpackConfig.plugins.push(
 webpackConfig.module.rules = webpackConfig.module.rules.concat(
   {
     test: /\.css|less$/,
+    exclude: path.resolve('node_modules'),
     use: [
       {
         loader: "style-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]"
@@ -124,6 +126,29 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(
         }
       }
       ],
+  },
+  {
+    test: /\.css|less$/,
+    include: path.resolve('node_modules'),
+    use: [
+      {
+        loader: "style-loader?sourceMap=true"
+      },
+      {
+        loader: "css-loader?sourceMap=true"
+      },
+      {
+        loader: "less-loader?sourceMap=true"
+      },
+      {
+        loader: 'postcss-loader?sourceMap=true',
+        options: {
+          config: {
+            path: 'build/config/postcss.config.js'
+          }
+        }
+      }
+    ],
   },
 );
 
