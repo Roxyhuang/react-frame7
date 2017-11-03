@@ -149,7 +149,37 @@ import config from 'config';
 const test = config.get('test');
 ```
 
+### 更新部分
+
+#### windows 10以下请使用
+
+```bash
+npm run dev:win
+```
+
+#### 可以直接import node_modules中的css
+
+直接可以在入口文件中引入
+
+```script
+import '@node_modules/test1/test.css';
+```
+#### 可以绝对路径使用src中的模块
+
+```script
+import 'assets/css/global.less';
+```
+#### prod命令下增加了zip包压缩
+```bash
+npm run prod
+```
+#### 增加了异步加载（待测试）
+
+#### 引入了antd
+
 ### 仍存在问题
 
 - js模块分割方案暂未成熟
 - css模块分割方案暂未成熟
+- antd配置
+- 异步加载测试

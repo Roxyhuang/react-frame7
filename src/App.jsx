@@ -1,7 +1,8 @@
 import React from 'react';
+import { NavBar, Icon, Button } from 'antd-mobile';
 import {
   Framework7App, View, Navbar, Pages, Page, ContentBlock, ContentBlockTitle,
-  List, ListItem, Views, NavLeft, Link, NavCenter, NavRight, GridRow, GridCol, Button, Popup,
+  List, ListItem, Views, Link, NavRight, GridRow, GridCol, Popup,
   LoginScreen, LoginScreenTitle, ListButton, ListLabel, FormLabel, FormInput,
 } from 'framework7-react';
 import doge from './assets/img/doge.jpeg';
@@ -12,20 +13,21 @@ import { routes } from './routes';
 const MainViews = () => {
   return (
     <Views>
+      <NavBar
+        mode="light"
+        icon={<Icon type="left" />}
+        onLeftClick={() => console.log('onLeftClick')}
+        rightContent={[
+          <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
+          <Icon key="1" type="ellipsis" />,
+        ]}
+      >NavBar</NavBar>
       <View id="main-view" navbarThrough dynamicNavbar main url="/">
-        <Navbar>
-          <NavLeft>
-            <Link icon="icon-bars" openPanel="left" />
-          </NavLeft>
-          <NavCenter sliding>Framework7</NavCenter>
-          <NavRight>
-            <Link icon="icon-bars" openPanel="right" />
-          </NavRight>
-        </Navbar>
         <Pages>
           <Page>
             <div className={s.test}>test</div>
             <div className="test1">213</div>
+            <Button>Start</Button>
             <img src={doge} alt="I'm Doge" />
             <ContentBlockTitle>Welcome to my App</ContentBlockTitle>
             <ContentBlock inner>

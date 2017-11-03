@@ -140,14 +140,14 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(
       {
         loader: "less-loader?sourceMap=true"
       },
-      {
-        loader: 'postcss-loader?sourceMap=true',
-        options: {
-          config: {
-            path: 'build/config/postcss.config.js'
-          }
-        }
-      }
+      // {
+      //   loader: 'postcss-loader?sourceMap=true',
+      //   options: {
+      //     config: {
+      //       path: 'build/config/postcss.config.js'
+      //     }
+      //   }
+      // }
     ],
   },
 );

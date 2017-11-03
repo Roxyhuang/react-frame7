@@ -38,20 +38,20 @@ module.exports = () => ({
 
     px2rem({remUnit: 75}),
 
-    postcssCssnext({
-      features: {
-        customProperties: {
-          variables: {
-            mainColor: "red",
-            altColor: "blue",
-          }
-        }
-      }
-    }),
-
-    // require('autoprefixer')({
-    //   browsers: pkg.browserslist,
-    //   flexbox: 'no-2009',
+    // postcssCssnext({
+    //   features: {
+    //     customProperties: {
+    //       variables: {
+    //         mainColor: "red",
+    //         altColor: "blue",
+    //       }
+    //     }
+    //   }
     // }),
+
+    require('autoprefixer')({
+      browsers: pkg.browserslist,
+      flexbox: 'no-2009',
+    }),
   ],
 });

@@ -13,6 +13,7 @@
     "not ie < 9"
   ],
   "dependencies": {
+    "antd-mobile": "^2.0.1",
     "chalk": "^2.1.0",
     "config": "^1.26.2",
     "framework7": "^1.5.3",
