@@ -4,31 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
-  <link rel="manifest" href="/assets/manifest.json">
-  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="manifest" href="./assets/manifest.json">
+  <link rel="shortcut icon" href="./assets/favicon.ico">
   <title>React Frame7</title>
+  <!--<script src="./assets/js/flexible.min.js"></script>-->
+  <!--<script src="https://gw.alipayobjects.com/os/rmsportal/uDTmsEBmTUVrpmCBozbm.js"></script>-->
+  <script src="./assets/js/rem.min.js"></script>
 </head>
 <body>
 <noscript>
   You need to enable JavaScript to run this app.
 </noscript>
 <div id="root"></div>
-<script>
-  (function (doc, win) {
-    var docEl = doc.documentElement,
-      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-      recalc = function () {
-        var clientWidth = docEl.clientWidth;
-        if (!clientWidth) return;
-        docEl.style.fontSize = 75 * (clientWidth / 750) + 'px';
-      };
-    if (doc.addEventListener) {
-      win.addEventListener(resizeEvt, recalc, false);
-      doc.addEventListener('DOMContentLoaded', recalc, false);
-    }
-  })(document, window);
-</script>
+<script src="https://img.99bill.com/seashell/webapp/lib/framework7/1.1.1/js/framework7.min.js"></script>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script src="/assets/test.js"></script>
+<script src="./assets/test.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '@node_modules/test1/test.css';
+// import '@node_modules/test1/test.css';
 import 'assets/css/global.less';
 import $ from 'zepto'; // eslint-disable-line
 // import frame7 from 'frame7'; // eslint-disable-line
