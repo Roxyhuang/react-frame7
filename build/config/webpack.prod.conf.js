@@ -20,7 +20,8 @@ let entryConfig = {
   vendors: [
     'react',
     'react-dom',
-    'framework7-react'
+    'framework7-react',
+    'antd-mobile',
   ]
 };
 
@@ -112,15 +113,16 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(
       fallback: 'style-loader',
       use: [
         'css-loader?sourceMap=true',
-        'less-loader?sourceMap=true',
-        // {
-        //   loader: 'postcss-loader?sourceMap=true',
-        //   options: {
-        //     config: {
-        //       path: 'build/config/postcss.config.js'
-        //     }
-        //   }
-        // }
+        {
+          loader: 'postcss-loader?sourceMap=true',
+          sourceMap: true,
+          options: {
+            config: {
+              path: 'build/config/postcss.config.js'
+            }
+          }
+        },
+        'less-loader?sourceMap=true'
       ]
     })
   },

@@ -1,8 +1,8 @@
   /* eslint-disable global-require */
 
 const pkg = require('../../package.json');
-const px2rem = require('postcss-px2rem');
-const postcssCssnext = require('postcss-cssnext');
+const px2rem = require('postcss-pxtorem');
+// const postcssCssnext = require('postcss-cssnext');
 
 module.exports = () => ({
 
@@ -28,7 +28,7 @@ module.exports = () => ({
 
     require('pleeease-filters')(),
 
-    require('pixrem')(),
+    // require('pixrem')(),
 
     require('postcss-selector-matches')(),
 
@@ -36,7 +36,17 @@ module.exports = () => ({
 
     require('postcss-flexbugs-fixes')(),
 
-    px2rem({remUnit: 75}),
+    px2rem(
+      {
+        rootValue: 75,
+        unitPrecision: 5,
+        propList: ['*', '!border*'],
+        selectorBlackList: [],
+        replace: true,
+        mediaQuery: false,
+        minPixelValue: 12
+      }
+    ),
 
     // postcssCssnext({
     //   features: {
@@ -48,7 +58,6 @@ module.exports = () => ({
     //     }
     //   }
     // }),
-
     require('autoprefixer')({
       browsers: pkg.browserslist,
       flexbox: 'no-2009',

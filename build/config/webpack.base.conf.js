@@ -100,7 +100,7 @@ const webpackConfig = {
     path: BUILD_PATH,
   },
   resolve: {
-    extensions: [" ",'.js', '.jsx', '.css', '.less'],
+    extensions: [" ",'.web.js','.js', '.jsx', '.json'],
     modules: ['node_modules', 'src'],
     alias: {
       '@node_modules': path.resolve('node_modules'),
